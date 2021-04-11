@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name="user")
 public class user {
@@ -27,6 +29,7 @@ public class user {
 	
 //	@Temporal(TemporalType.DATE)
 //	@DateTimeFormat(pattern ="dd/mm/yyyy")
+	@CreationTimestamp
 	private Date date_create;
 	
 	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
