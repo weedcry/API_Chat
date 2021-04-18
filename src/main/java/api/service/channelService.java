@@ -17,15 +17,15 @@ public class channelService {
 	
 	channelConvert channelC = new channelConvert();
 	
-	public List<channel> findById(long id) {	
+	public List<channelDTO> findById(long id) {	
 		ServiceResult result = new ServiceResult();
 		List<channel> listc = channelRes.findById(id);
 		if(listc.isEmpty()) {
 			System.out.println("fail");
 			result.setMessage("channel not found");
-			return listc;
+			//return listc;
 		}
-		return listc;
+		return channelC.listchannelDTO(listc);
 	}
 	
 	// hiển thị tất cả channel user tham gia
