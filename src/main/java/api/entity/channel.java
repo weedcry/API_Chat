@@ -18,10 +18,9 @@ public class channel  {
 	@Id
 	private long id;
 	
-	
+	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	@Id
 	private user user;
 	
 	private String topic;
