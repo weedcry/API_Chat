@@ -17,6 +17,9 @@ public class userDTO {
 	private Date  birthday;
 	
 	private Date date_create;
+	
+	private int active;
+
 
 	public String getId() {
 		return id;
@@ -74,5 +77,13 @@ public class userDTO {
 		this.date_create = date_create;
 	}
 	
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
 	
 }
