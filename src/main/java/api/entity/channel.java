@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="channel")
 public class channel  {
@@ -18,6 +19,8 @@ public class channel  {
 	@Id
 	private long id;
 	
+	
+	private String author_id; 
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
@@ -42,6 +45,14 @@ public class channel  {
 		this.id = id;
 	}
 
+	public String getAuthor_id() {
+		return author_id;
+	}
+
+	public void setAuthor_id(String author_id) {
+		this.author_id = author_id;
+	}
+	
 	public user getUser() {
 		return user;
 	}

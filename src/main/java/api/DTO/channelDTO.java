@@ -4,6 +4,8 @@ public class channelDTO {
 	
 	private long id;
 	
+	private String author_id;
+	
 	private userDTO user;
 	
 	private String topic;
@@ -22,6 +24,15 @@ public class channelDTO {
 		this.id = id;
 	}
 
+	
+	
+	public String getAuthor_id() {
+		return author_id;
+	}
+
+	public void setAuthor_id(String author_id) {
+		this.author_id = author_id;
+	}
 
 	public userDTO getUser() {
 		return user;

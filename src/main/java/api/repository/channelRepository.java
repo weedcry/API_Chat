@@ -12,12 +12,12 @@ public interface channelRepository extends JpaRepository<channel,Long> {
 	List<channel> findById(Long id);
 	
 	// hiển thị tất cả channel user tham gia 
-	@Query(value = "SELECT c.* FROM channel as c where c.user_id = ?1", nativeQuery = true)
-	List<channel> findByUser(String user_id);
+	@Query(value = "SELECT c.* FROM channel as c where c.author_id = ?1", nativeQuery = true)
+	List<channel> findByauthorid(String author_id);
 	
 	// hiển thị channel của user chỉ định
-	@Query(value = "SELECT c.* FROM channel as c where c.id = ?1 and c.user_id = ?2", nativeQuery = true)
-	channel findByUserId(Long id ,String user_id);
+	@Query(value = "SELECT c.* FROM channel as c where c.id = ?1 and c.author_id = ?2", nativeQuery = true)
+	channel findByUserId(Long id ,String author_id);
 	
 	
 }

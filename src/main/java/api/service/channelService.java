@@ -29,9 +29,9 @@ public class channelService {
 	}
 	
 	// hiển thị tất cả channel user tham gia
-	public List<channelDTO> findByUser(String user_id) {	
+	public List<channelDTO> findByUser(String author_id) {	
 		ServiceResult result = new ServiceResult();
-		List<channel> listc = channelRes.findByUser(user_id);
+		List<channel> listc = channelRes.findByauthorid(author_id);
 		if(listc.isEmpty()) {
 			System.out.println("fail");
 			result.setMessage("channel not found");

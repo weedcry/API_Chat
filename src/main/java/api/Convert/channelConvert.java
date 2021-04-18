@@ -18,6 +18,7 @@ public class channelConvert {
 		u.setPhoto(cDTO.getUser().getPhoto());
 		channel c = new channel();	
 		c.setId(cDTO.getId());
+		c.setAuthor_id(cDTO.getAuthor_id());
 		c.setUser(u);
 		c.setTopic(cDTO.getTopic());
 		c.setPassword(cDTO.getPassword());
@@ -30,6 +31,7 @@ public class channelConvert {
 
 		channelDTO cDTO = new channelDTO();
 		cDTO.setId(c.getId());
+		cDTO.setAuthor_id(c.getAuthor_id());
 		cDTO.setUser(ucon.touserDTO(c.getUser()));
 		cDTO.setTopic(c.getTopic());
 		cDTO.setPassword(c.getPassword());
