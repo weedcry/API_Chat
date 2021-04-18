@@ -4,7 +4,7 @@ public class channelDTO {
 	
 	private long id;
 	
-	private String user_id;
+	private userDTO user;
 	
 	private String topic;
 	
@@ -22,12 +22,13 @@ public class channelDTO {
 		this.id = id;
 	}
 
-	public String getUser_id() {
-		return user_id;
+
+	public userDTO getUser() {
+		return user;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUser(userDTO user) {
+		this.user = user;
 	}
 
 	public String getTopic() {
