@@ -9,9 +9,13 @@ import api.entity.user;
 
 public class channelConvert {
 	
+	userConvert ucon = new userConvert();
+	
 	public channel tochannel(channelDTO cDTO) {
 		user u = new user();
-		u.setId(cDTO.getUser_id());
+		u.setId(cDTO.getUser().getId());
+		u.setName(cDTO.getUser().getName());
+		u.setPhoto(cDTO.getUser().getPhoto());
 		channel c = new channel();	
 		c.setId(cDTO.getId());
 		c.setUser(u);
@@ -25,8 +29,8 @@ public class channelConvert {
 	public channelDTO tochannelDTO(channel c) {
 
 		channelDTO cDTO = new channelDTO();
-		cDTO.setId(c.getId());;
-		cDTO.setUser_id(c.getUser().getId());
+		cDTO.setId(c.getId());
+		cDTO.setUser(ucon.touserDTO(c.getUser()));
 		cDTO.setTopic(c.getTopic());
 		cDTO.setPassword(c.getPassword());
 		cDTO.setStatus(c.getStatus());
