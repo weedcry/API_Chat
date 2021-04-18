@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import api.Convert.userConvert;
 import api.entity.user;
 import api.repository.userRepository;
 
@@ -12,6 +13,8 @@ import api.repository.userRepository;
 public class userService {
 	@Autowired
 	userRepository userRes;
+	
+	userConvert uconvert = new userConvert();
 	
 	public Object findById(String id) {		
 		ServiceResult result = new ServiceResult();
@@ -24,7 +27,7 @@ public class userService {
 		}
 		System.out.println("succe");
 		System.out.println(u);
-		result.setData(u);
+		result.setData(uconvert.touserDTO(u));
 		return result.getData();
 	}
 		
@@ -53,7 +56,7 @@ public class userService {
 			result.setMessage("user not found");
 			return result.getMessage();
 		}
-		result.setData(userRes.save(u));
+		result.setData(uconvert.touserDTO(userRes.save(u)));
 		return result.getData();
 	}
 	
