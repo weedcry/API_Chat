@@ -27,7 +27,7 @@ public class user {
 	
 	private Date  birthday;
 	
-	private int active;
+	
 	
 
 
@@ -99,13 +99,7 @@ public class user {
 		this.date_create = date_create;
 	}
 	
-	public int getActive() {
-		return active;
-	}
 
-	public void setActive(int active) {
-		this.active = active;
-	}
 
 //	public Collection<channel> getChannel() {
 //		return channel;
