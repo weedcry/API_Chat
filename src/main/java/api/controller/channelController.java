@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.DTO.channelDTO;
-import api.entity.channel;
 import api.service.channelService;
 
 @RestController
@@ -25,8 +24,8 @@ public class channelController {
 	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<List<channel>> findById(@PathVariable long id){
-		return new ResponseEntity<List<channel>>(channelS.findById(id),HttpStatus.OK);	
+	public ResponseEntity<List<channelDTO>> findById(@PathVariable long id){
+		return new ResponseEntity<List<channelDTO>>(channelS.findById(id),HttpStatus.OK);	
 	}	
 	
 	@GetMapping("/user/{user_id}")
