@@ -19,7 +19,8 @@ public class userConvert {
 		udto.setPhone(u.getPhone());
 		udto.setPhoto(u.getPhoto());
 		udto.setBirthday(u.getBirthday());
-		udto.setDate_create(u.getDate_create());		
+		udto.setDate_create(u.getDate_create());	
+		udto.setActive(u.getActive());
 		return udto;
 	}
 }
