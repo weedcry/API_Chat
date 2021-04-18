@@ -29,13 +29,7 @@ public class user {
 	
 	private int active;
 	
-public int getActive() {
-		return active;
-	}
 
-	public void setActive(int active) {
-		this.active = active;
-	}
 
 	//	@Temporal(TemporalType.DATE)
 //	@DateTimeFormat(pattern ="dd/mm/yyyy")
@@ -103,6 +97,14 @@ public int getActive() {
 
 	public void setDate_create(Date date_create) {
 		this.date_create = date_create;
+	}
+	
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
 	}
 
 //	public Collection<channel> getChannel() {
