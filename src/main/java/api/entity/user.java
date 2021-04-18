@@ -27,7 +27,17 @@ public class user {
 	
 	private Date  birthday;
 	
-//	@Temporal(TemporalType.DATE)
+	private int active;
+	
+public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
+	//	@Temporal(TemporalType.DATE)
 //	@DateTimeFormat(pattern ="dd/mm/yyyy")
 	@CreationTimestamp
 	private Date date_create;
