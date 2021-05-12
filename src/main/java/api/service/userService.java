@@ -1,6 +1,9 @@
 package api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +13,23 @@ import api.repository.userRepository;
 
 @Service
 @Component
-public class userService {
+public class userService implements UserDetailsService {
 	@Autowired
 	userRepository userRes;
 	
 	userConvert uconvert = new userConvert();
+
+	@Override
+	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+		user user = userRes.findByUserName(s).
+				orElseThrow(() -> new UsernameNotFoundException("username not found with :"+s));
+		return UserDetailsImpl.build(user);
+	}
+
 	
 	public Object findById(String id) {		
 		ServiceResult result = new ServiceResult();
 		user u = userRes.findById(id);
-//		user u = userRes.findByQ(id);
 		if(u == null) {
 			System.out.println("fail");
 			result.setMessage("user not found");
@@ -59,7 +69,7 @@ public class userService {
 		result.setData(uconvert.touserDTO(userRes.save(u)));
 		return result.getData();
 	}
-	
-	
-	
+
+
+
 }

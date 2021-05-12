@@ -18,7 +18,7 @@ import api.service.userService;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class userController {
 	@Autowired
 	userService userS;
