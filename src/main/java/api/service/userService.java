@@ -1,6 +1,11 @@
 package api.service;
 
+import api.DTO.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -10,23 +15,28 @@ import api.repository.userRepository;
 
 @Service
 @Component
-public class userService {
+public class userService implements UserDetailsService {
 	@Autowired
 	userRepository userRes;
 	
 	userConvert uconvert = new userConvert();
+
+	@Override
+	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+		user user = userRes.findByUserName(s).
+				orElseThrow(() -> new UsernameNotFoundException("username not found with :"+s));
+		return UserDetailsImpl.build(user);
+	}
+
 	
 	public Object findById(String id) {		
 		ServiceResult result = new ServiceResult();
 		user u = userRes.findById(id);
-//		user u = userRes.findByQ(id);
 		if(u == null) {
 			System.out.println("fail");
 			result.setMessage("user not found");
 			return result.getMessage();
 		}
-		System.out.println("succe");
-		System.out.println(u);
 		result.setData(uconvert.touserDTO(u));
 		return result.getData();
 	}
@@ -44,11 +54,21 @@ public class userService {
 	}
 	
 	public Object create(user u) {	
-		ServiceResult result = new ServiceResult();	
+		ServiceResult result = new ServiceResult();
+
+		if (userRes.existsById(u.getId())) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Username is already taken!"));
+		}
 		result.setData(userRes.save(u));
-		return result.getData();
+
+		return ResponseEntity
+				.ok()
+				.body(new MessageResponse("User registered successfully!"));
 	}
-	
+
+
 	public Object update(user u) {	
 		ServiceResult result = new ServiceResult();	
 		user usern = userRes.findById(u.getId());
@@ -59,7 +79,7 @@ public class userService {
 		result.setData(uconvert.touserDTO(userRes.save(u)));
 		return result.getData();
 	}
-	
-	
-	
+
+
+
 }

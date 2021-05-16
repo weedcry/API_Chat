@@ -17,7 +17,7 @@ import api.DTO.messagesDTO;
 import api.service.messagesService;
 
 @RestController
-@RequestMapping("/messages")
+@RequestMapping("/api/messages")
 public class messagesController {
 	@Autowired
 	messagesService messagesS;

@@ -17,7 +17,7 @@ import api.DTO.channelDTO;
 import api.service.channelService;
 
 @RestController
-@RequestMapping("/channel")
+@RequestMapping("/api/channel")
 public class channelController {
 	@Autowired
 	channelService channelS;

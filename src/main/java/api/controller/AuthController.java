@@ -8,8 +8,10 @@ import api.common.JwtUtils;
 import api.entity.user;
 import api.repository.userRepository;
 import api.service.UserDetailsImpl;
+import api.service.userService;
 import org.h2.tools.Console;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +31,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/auth/")
 public class AuthController {
+    @Autowired
+    userService userS;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -43,8 +47,8 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest) throws ParseException {
-        System.out.println("account :"+loginRequest.getUsername() +"-"+ loginRequest.getPassword());
+    public ResponseEntity<?> signinUser(@Validated @RequestBody LoginRequest loginRequest) throws ParseException {
+//        System.out.println("account :"+loginRequest.getUsername() +"-"+ loginRequest.getPassword());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                 loginRequest.getPassword()));
@@ -55,7 +59,6 @@ public class AuthController {
 //        List<String> roles = userDetails.getAuthorities().stream()
 //                .map(item -> item.getAuthority()).collect(Collectors.toList());
 
-
         return ResponseEntity.ok(new JwtResponse(
                 userDetails.getUsername(),
                 userDetails.getName(),
@@ -65,20 +68,14 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsById(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
-        }
-        Date bithd = new Date(1999-11-9);
         // Create new user's account
-        user ur = new user(signUpRequest.getUsername(),
+        String linkphotodefault = "linkphotodefault";
+
+        user u = new user(signUpRequest.getUsername(),
                 signUpRequest.getName(),
-                encoder.encode(signUpRequest.getPassword()),"a",bithd);
+                encoder.encode(signUpRequest.getPassword()),linkphotodefault,signUpRequest.getBirthday());
 
-        userRepository.save(ur);
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return (ResponseEntity<?>) userS.create(u);
     }
 
 }

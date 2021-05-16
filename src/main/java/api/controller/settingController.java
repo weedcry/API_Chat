@@ -16,7 +16,7 @@ import api.entity.setting;
 import api.service.settingService;
 
 @RestController
-@RequestMapping("/setting")
+@RequestMapping("/api/setting")
 public class settingController {
 	@Autowired
 	settingService settingS;

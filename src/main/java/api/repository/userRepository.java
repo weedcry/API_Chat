@@ -5,10 +5,15 @@ import org.springframework.data.jpa.repository.Query;
 
 import api.entity.user;
 
+import java.util.Optional;
+
 public interface userRepository extends JpaRepository<user, String>{
 	user findById(String id);
-	
+
 	@Query(value = "select * from user where user.id = ?1", nativeQuery = true)
-	user findByQ(String id);
+	Optional<user> findByUserName(String id);
+
+	Boolean existsById(String id);
+
 	
 }

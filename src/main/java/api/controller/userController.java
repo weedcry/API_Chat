@@ -1,9 +1,12 @@
 package api.controller;
 
 
+import api.DTO.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,29 +21,46 @@ import api.service.userService;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class userController {
 	@Autowired
 	userService userS;
 	
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Object> findByUserId(@PathVariable String id){
-		return new ResponseEntity<Object>(userS.findById(id),HttpStatus.OK);	
-	}	
+	@GetMapping("")
+	public ResponseEntity<Object> findByUserId(){
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+
+		}
+		return new ResponseEntity<Object>(userS.findById(username),HttpStatus.OK);
+	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> delete(@PathVariable String id){
-		return new ResponseEntity<Object>(userS.delete(id),HttpStatus.OK);	
+	@DeleteMapping("")
+	public ResponseEntity<Object> delete(){
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+
+		}
+		return new ResponseEntity<Object>(userS.delete(username),HttpStatus.OK);
 	}
 	
 	@PutMapping("")
-	public ResponseEntity<Object> update(@RequestBody user u){	
-		return new ResponseEntity<Object>(userS.update(u),HttpStatus.OK);
+	public ResponseEntity<Object> update(@RequestBody user u){
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(principal instanceof UserDetails){
+			String username = ((UserDetails) principal).getUsername();
+			if(u.getId().equals(username)){
+				return new ResponseEntity<Object>(userS.update(u),HttpStatus.OK);
+			}
+		}
+		return ResponseEntity
+				.badRequest()
+				.body(new MessageResponse("user not found!"));
 	}
-	
-	@PostMapping("")
-	public ResponseEntity<Object> create(@RequestBody user u){
-		return new ResponseEntity<Object>(userS.create(u),HttpStatus.CREATED);
-	}
+
 }
