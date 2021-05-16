@@ -27,18 +27,9 @@ public class user {
 	
 	private Date  birthday;
 	
-	private int active = 0;
+	private int active;
+	
 
-	public user() {
-	}
-
-	public user(String id, String name, String password, String photo, Date birthday) {
-		this.id = id;
-		this.name = name;
-		this.password = password;
-		this.photo = photo;
-		this.birthday = birthday;
-	}
 
 	//	@Temporal(TemporalType.DATE)
 //	@DateTimeFormat(pattern ="dd/mm/yyyy")
