@@ -3,6 +3,8 @@ package api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +24,15 @@ public class settingController {
 	settingService settingS;
 	
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Object> findByUserId(@PathVariable String id){
-		return new ResponseEntity<Object>(settingS.findById(id),HttpStatus.OK);	
+	@GetMapping("")
+	public ResponseEntity<Object> findByUserId(){
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+
+		}
+		return new ResponseEntity<Object>(settingS.findById(username),HttpStatus.OK);
 	}	
 	
 	@DeleteMapping("/{id}")
@@ -36,9 +44,9 @@ public class settingController {
 	public ResponseEntity<Object> update(@RequestBody setting u){	
 		return new ResponseEntity<Object>(settingS.update(u),HttpStatus.OK);
 	}
-	
-	@PostMapping("")
-	public ResponseEntity<Object> create(@RequestBody setting u){
-		return new ResponseEntity<Object>(settingS.create(u),HttpStatus.CREATED);
+
+	public void create(String id){
+		setting sett = new setting(id,1,1);
+		settingS.create(sett);
 	}
 }

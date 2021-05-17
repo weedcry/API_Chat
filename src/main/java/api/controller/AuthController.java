@@ -74,6 +74,9 @@ public class AuthController {
         user u = new user(signUpRequest.getUsername(),
                 signUpRequest.getName(),
                 encoder.encode(signUpRequest.getPassword()),linkphotodefault,signUpRequest.getBirthday());
+        // create setting
+        settingController settingCon = new settingController();
+        settingCon.create(signUpRequest.getUsername());
 
         return (ResponseEntity<?>) userS.create(u);
     }

@@ -16,32 +16,19 @@ public class channelService {
 	channelRepository channelRes;
 	
 	channelConvert channelC = new channelConvert();
-	
-	public List<channelDTO> findById(long id) {	
-		ServiceResult result = new ServiceResult();
-		List<channel> listc = channelRes.findById(id);
-		if(listc.isEmpty()) {
-			System.out.println("fail");
-			result.setMessage("channel not found");
-			//return listc;
-		}
-		return channelC.listchannelDTO(listc);
-	}
+
 	
 	// hiển thị tất cả channel user tham gia
-	public List<channelDTO> findByUser(String author_id) {	
+	public List<channelDTO> findByAuthor_id(String author_id) {
 		ServiceResult result = new ServiceResult();
 		List<channel> listc = channelRes.findByauthorid(author_id);
 		if(listc.isEmpty()) {
 			System.out.println("fail");
 			result.setMessage("channel not found");
-		//	return c;
 		}
-		
 		return channelC.listchannelDTO(listc);
 	}
-	
-	
+
 //	public Object delete(long id ) {
 //		ServiceResult result = new ServiceResult();
 //		List<channel> c = channelRes.findById(id);

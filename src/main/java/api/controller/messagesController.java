@@ -21,8 +21,7 @@ import api.service.messagesService;
 public class messagesController {
 	@Autowired
 	messagesService messagesS;
-	
-		
+
 	@GetMapping("/{channel_id}")
 	public ResponseEntity<List<messagesDTO>> findByChannel(@PathVariable long channel_id){
 		return new ResponseEntity<List<messagesDTO>>(messagesS.findByChannel(channel_id),HttpStatus.OK);	

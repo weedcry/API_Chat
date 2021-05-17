@@ -18,8 +18,7 @@ public class channel  {
 //	private channel_general channel_general;
 	@Id
 	private long id;
-	
-	
+
 	private String author_id; 
 	
 	@ManyToOne(fetch = FetchType.LAZY)

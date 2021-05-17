@@ -61,7 +61,8 @@ public class userService implements UserDetailsService {
 					.badRequest()
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
-		result.setData(userRes.save(u));
+		userRes.save(u);
+
 
 		return ResponseEntity
 				.ok()

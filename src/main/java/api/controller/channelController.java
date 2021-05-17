@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,24 +23,18 @@ import api.service.channelService;
 public class channelController {
 	@Autowired
 	channelService channelS;
+
 	
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<List<channelDTO>> findById(@PathVariable long id){
-		return new ResponseEntity<List<channelDTO>>(channelS.findById(id),HttpStatus.OK);	
-	}	
-	
-	@GetMapping("/user/{user_id}")
-	public ResponseEntity<List<channelDTO>> findByUser(@PathVariable String user_id){
-		return new ResponseEntity<List<channelDTO>>(channelS.findByUser(user_id),HttpStatus.OK);	
+	@GetMapping("/user")
+	public ResponseEntity<List<channelDTO>> findByAuthorid(){
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
+		return new ResponseEntity<List<channelDTO>>(channelS.findByAuthor_id(username),HttpStatus.OK);
 	}
-	
-	
-//	@GetMapping("/{id}/{user_id}")
-//	public ResponseEntity<List<channel>> findByUserId(@PathVariable long id,@PathVariable String user_id){
-//		return new ResponseEntity<List<channel>>(channelS.findById(id,user_id),HttpStatus.OK);	
-//	}	
-	
+
 //	@DeleteMapping("/{id}")
 //	public ResponseEntity<Object> delete(@PathVariable long id){
 //		return new ResponseEntity<Object>(channelS.delete(id),HttpStatus.OK);	

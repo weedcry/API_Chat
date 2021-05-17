@@ -27,8 +27,6 @@ public class messagesService {
 		return messagesConv.listmessagesDTO(list);
 	}
 	
-		
-	
 	public Object create(messagesDTO mDTO) {			
 		messagesRes.save(messagesConv.tomessages(mDTO));		
 		return mDTO;

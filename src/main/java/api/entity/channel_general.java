@@ -51,7 +51,4 @@ public class channel_general {
 //		this.messages = messages;
 //	}
 
-
-	
-	
 }
