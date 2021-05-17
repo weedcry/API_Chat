@@ -12,14 +12,17 @@ public class SignupRequest {
 
     private Date birthday;
 
+    private String phone;
+
     public SignupRequest() {
     }
 
-    public SignupRequest(String username, String name, String password, Date birthday) {
+    public SignupRequest(String username, String name, String password, Date birthday, String phone) {
         this.username = username;
         this.name = name;
         this.password = password;
         this.birthday = birthday;
+        this.phone = phone;
     }
 
     public String getUsername() { return username;}
@@ -47,4 +50,12 @@ public class SignupRequest {
     public Date getBirthday() { return birthday; }
 
     public void setBirthday(Date birthday) { this.birthday = birthday; }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }

@@ -73,7 +73,7 @@ public class AuthController {
 
         user u = new user(signUpRequest.getUsername(),
                 signUpRequest.getName(),
-                encoder.encode(signUpRequest.getPassword()),linkphotodefault,signUpRequest.getBirthday());
+                encoder.encode(signUpRequest.getPassword()),linkphotodefault,signUpRequest.getBirthday(),signUpRequest.getPhone());
         // create setting
         settingController settingCon = new settingController();
         settingCon.create(u.getId());

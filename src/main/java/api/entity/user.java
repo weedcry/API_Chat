@@ -32,12 +32,14 @@ public class user {
 	public user() {
 	}
 
-	public user(String id, String name, String password, String photo, Date birthday) {
+
+	public user(String id, String name, String password, String photo, Date birthday, String phone) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.photo = photo;
 		this.birthday = birthday;
+		this.phone = phone;
 	}
 
 	//	@Temporal(TemporalType.DATE)
