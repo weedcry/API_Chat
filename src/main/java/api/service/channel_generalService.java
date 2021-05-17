@@ -1,6 +1,7 @@
 package api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import api.Convert.channel_generalConvert;
@@ -9,6 +10,7 @@ import api.entity.channel_general;
 import api.repository.channel_generalRepository;
 
 @Service
+@Component
 public class channel_generalService {
 	@Autowired
 	channel_generalRepository channel_generalRes;

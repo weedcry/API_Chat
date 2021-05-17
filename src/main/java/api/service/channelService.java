@@ -3,6 +3,7 @@ package api.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import api.Convert.channelConvert;
@@ -11,6 +12,7 @@ import api.entity.channel;
 import api.repository.channelRepository;
 
 @Service
+@Component
 public class channelService {
 	@Autowired
 	channelRepository channelRes;

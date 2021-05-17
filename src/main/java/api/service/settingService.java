@@ -1,12 +1,14 @@
 package api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import api.entity.setting;
 import api.repository.settingRepository;
 
 @Service
+@Component
 public class settingService {
 	@Autowired
 	settingRepository settingRes;
@@ -37,10 +39,12 @@ public class settingService {
 		return result.getMessage();	
 	}
 	
-	public Object create(setting u) {	
-		ServiceResult result = new ServiceResult();	
-		result.setData(settingRes.save(u));
-		return result.getData();
+	public void create(setting u) {
+		ServiceResult result = new ServiceResult();
+		try {
+			settingRes.save(u);
+		}catch (Exception e){
+		}
 	}
 	
 	public Object update(setting s) {	
