@@ -53,6 +53,9 @@ public class user {
 	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
 	private Collection<messages> messages;
 
+	@OneToMany(mappedBy = "userfriend")
+	private Collection<friend> friend;
+
 
 	public String getId() {
 		return id;

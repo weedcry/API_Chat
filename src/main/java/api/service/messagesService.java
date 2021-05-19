@@ -25,7 +25,8 @@ public class messagesService {
 		List<messages> list = messagesRes.findByChannel_General(channel_id);
 		for (messages messages : list) {
 			System.out.println(messages.getContent());
-		}				
+		}
+
 		return messagesConv.listmessagesDTO(list);
 	}
 	

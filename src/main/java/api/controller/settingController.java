@@ -23,7 +23,6 @@ public class settingController {
 	@Autowired
 	settingService settingS;
 	
-	
 	@GetMapping("")
 	public ResponseEntity<Object> findByUserId(){
 		String username = null;
