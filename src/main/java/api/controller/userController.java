@@ -26,7 +26,6 @@ public class userController {
 	@Autowired
 	userService userS;
 	
-	
 	@GetMapping("")
 	public ResponseEntity<Object> findByUserId(){
 		String username = null;
@@ -36,6 +35,11 @@ public class userController {
 
 		}
 		return new ResponseEntity<Object>(userS.findById(username),HttpStatus.OK);
+	}
+
+	@GetMapping("/find/{id}")
+	public ResponseEntity<Object> finduser(@PathVariable String id){
+		return new ResponseEntity<Object>(userS.findById(id),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("")
