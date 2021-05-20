@@ -3,6 +3,7 @@ package api.service;
 import api.DTO.messagesDTO;
 import api.entity.messages;
 import api.entity.setting;
+import api.entity.user;
 import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,12 +13,16 @@ import api.repository.friendRepository;
 
 import java.util.List;
 import api.entity.friend;
+import api.DTO.userDTO;
 
 @Service
 @Component
 public class friendService {
     @Autowired
     friendRepository friendRes;
+
+    @Autowired
+    userService userService;
 
 
     public List<friend> findfriendById(String id){
@@ -31,28 +36,23 @@ public class friendService {
         return list;
     }
 
-    public Object addfriend(){
+    public Object inviteFriend(friend fri){
         ServiceResult result = new ServiceResult();
-
-
+        friendRes.save(fri);
         result.setMessage("success");
         return result.getMessage();
     }
 
-    public Object updatefriend(){
+    public Object acceptFriend(friend fri){
         ServiceResult result = new ServiceResult();
-
-
+        friendRes.save(fri);
         result.setMessage("success");
         return result.getMessage();
     }
 
-
-
-    public Object deletefriend(){
+    public Object deletefriend(friend fri){
         ServiceResult result = new ServiceResult();
-
-
+        friendRes.delete(fri);
         result.setMessage("success");
         return result.getMessage();
     }

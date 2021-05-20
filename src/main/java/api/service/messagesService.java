@@ -35,9 +35,11 @@ public class messagesService {
 		return messagesConv.tomessagesDTO(messages);
 	}
 
-	public Object create(messagesDTO mDTO) {			
-		messagesRes.save(messagesConv.tomessages(mDTO));		
-		return mDTO;
+	public Object create(messagesDTO mDTO) {
+		ServiceResult result = new ServiceResult();
+		messagesRes.save(messagesConv.tomessages(mDTO));
+		result.setMessage("succcess");
+		return result.getMessage();
 	}
 	
 	// chưa update 

@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import api.service.friendService;
 
 import java.util.List;
@@ -32,6 +29,19 @@ public class friendController {
         return new ResponseEntity<List<friend>>(friendSer.findfriendById(username), HttpStatus.OK);
     }
 
+    @PostMapping("")
+    public ResponseEntity<Object> sendInviteFriend(@RequestBody friend fri) {
+        return new ResponseEntity<Object>(friendSer.inviteFriend(fri),HttpStatus.OK);
+    }
 
+    @PutMapping("")
+    public ResponseEntity<Object> sendAcceptFriend(@RequestBody friend fri) {
+        return new ResponseEntity<Object>(friendSer.acceptFriend(fri),HttpStatus.OK);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<Object> sendDeleteFriend(@RequestBody friend fri) {
+        return new ResponseEntity<Object>(friendSer.deletefriend(fri),HttpStatus.OK);
+    }
 
 }

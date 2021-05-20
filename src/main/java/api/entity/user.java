@@ -30,8 +30,8 @@ public class user {
 	private int active = 0;
 
 	public user() {
-	}
 
+	}
 
 	public user(String id, String name, String password, String photo, Date birthday, String phone) {
 		this.id = id;

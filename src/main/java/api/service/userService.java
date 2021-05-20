@@ -33,7 +33,6 @@ public class userService implements UserDetailsService {
 		ServiceResult result = new ServiceResult();
 		user u = userRes.findById(id);
 		if(u == null) {
-			System.out.println("fail");
 			result.setMessage("user not found");
 			return result.getMessage();
 		}
