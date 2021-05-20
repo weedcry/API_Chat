@@ -29,7 +29,12 @@ public class messagesService {
 
 		return messagesConv.listmessagesDTO(list);
 	}
-	
+
+	public messagesDTO findMessageByChannel(Long channel_id){
+		messages messages = messagesRes.findMessageByChannel_General(channel_id);
+		return messagesConv.tomessagesDTO(messages);
+	}
+
 	public Object create(messagesDTO mDTO) {			
 		messagesRes.save(messagesConv.tomessages(mDTO));		
 		return mDTO;

@@ -26,6 +26,12 @@ public class messagesController {
 	public ResponseEntity<List<messagesDTO>> findByChannel(@PathVariable long channel_id){
 		return new ResponseEntity<List<messagesDTO>>(messagesS.findByChannel(channel_id),HttpStatus.OK);	
 	}
+
+	@GetMapping("/last/{channel_id}")
+	public ResponseEntity<messagesDTO> findMessageByChannel(@PathVariable long channel_id){
+		return new ResponseEntity<messagesDTO>(messagesS.findMessageByChannel(channel_id),HttpStatus.OK);
+	}
+
 	
 	@PutMapping("")
 	public ResponseEntity<Object> update(@RequestBody messagesDTO mDTO){

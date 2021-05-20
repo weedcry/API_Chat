@@ -13,6 +13,9 @@ public interface messagesRepository extends JpaRepository<messages,Long> {
 	
 	@Query(value = "SELECT m.* FROM messages as m WHERE m.channel_id = ?1",nativeQuery = true)
 	List<messages> findByChannel_General(Long channel_general);
+
+	@Query(value = "SELECT m.* FROM messages as m WHERE m.channel_id = ?1 and m.id = (SELECT MAX(m.id) FROM messages as m where m.channel_id = ?1)",nativeQuery = true)
+	messages findMessageByChannel_General(Long channel_general);
 		
 	
 	
