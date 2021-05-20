@@ -18,13 +18,16 @@ public class friend {
 
     private int friend_active;
 
+    private int active;
+
     public friend() {
     }
 
-    public friend(String id, user userfriend, int friend_active) {
+    public friend(String id, user userfriend, int friend_active, int active) {
         this.id = id;
         this.userfriend = userfriend;
         this.friend_active = friend_active;
+        this.active = active;
     }
 
     public String getId() {
@@ -49,5 +52,13 @@ public class friend {
 
     public void setFriend_active(int friend_active) {
         this.friend_active = friend_active;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 }
