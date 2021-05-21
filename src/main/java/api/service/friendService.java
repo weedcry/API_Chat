@@ -45,6 +45,10 @@ public class friendService {
 
     public Object acceptFriend(friend fri){
         ServiceResult result = new ServiceResult();
+
+        user u = (user) userService.findById(fri.getId());
+        friend friendaccept = new friend(fri.getUserfriend().getId(),u,1,u.getActive());
+        friendRes.save(friendaccept);
         friendRes.save(fri);
         result.setMessage("success");
         return result.getMessage();
