@@ -21,13 +21,13 @@ public class messagesService {
 //	private messagesConvert messagesConv;
 	messagesConvert messagesConv = new messagesConvert();
 	
-	public List<messagesDTO> findByChannel(Long channel_id){
+	public List<messages> findByChannel(Long channel_id){
 		List<messages> list = messagesRes.findByChannel_General(channel_id);
 		for (messages messages : list) {
 			System.out.println(messages.getContent());
 		}
 
-		return messagesConv.listmessagesDTO(list);
+		return list;
 	}
 
 	public messagesDTO findMessageByChannel(Long channel_id){
@@ -36,9 +36,18 @@ public class messagesService {
 	}
 
 	public Object create(messagesDTO mDTO) {
+		System.out.println("mdto - "+mDTO.getDatetime());
 		ServiceResult result = new ServiceResult();
 		messagesRes.save(messagesConv.tomessages(mDTO));
-		result.setMessage("succcess");
+		result.setMessage("success");
+		return result.getMessage();
+	}
+
+	public Object createmess(messages m ) {
+		System.out.println("m  - "+m.getDatetime());
+		ServiceResult result = new ServiceResult();
+		messagesRes.save(m);
+		result.setMessage("success");
 		return result.getMessage();
 	}
 	

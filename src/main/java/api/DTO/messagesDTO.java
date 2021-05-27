@@ -1,6 +1,9 @@
 package api.DTO;
 
-import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 public class messagesDTO {
 	private long id;
@@ -14,7 +17,10 @@ public class messagesDTO {
 	private String content;
 	
 	private String Status;
-	
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="IST")
 	private Date datetime ;
 	
 	private long reply;

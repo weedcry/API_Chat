@@ -2,6 +2,7 @@ package api.controller;
 
 import java.util.List;
 
+import api.entity.messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,8 @@ public class messagesController {
 	messagesService messagesS;
 
 	@GetMapping("/{channel_id}")
-	public ResponseEntity<List<messagesDTO>> findByChannel(@PathVariable long channel_id){
-		return new ResponseEntity<List<messagesDTO>>(messagesS.findByChannel(channel_id),HttpStatus.OK);	
+	public ResponseEntity<List<messages>> findByChannel(@PathVariable long channel_id){
+		return new ResponseEntity<List<messages>>(messagesS.findByChannel(channel_id),HttpStatus.OK);
 	}
 
 	@GetMapping("/last/{channel_id}")
@@ -40,6 +41,8 @@ public class messagesController {
 	
 	@PostMapping("")
 	public ResponseEntity<Object> create(@RequestBody messagesDTO mDTO){
+
 		return new ResponseEntity<Object>(messagesS.create(mDTO),HttpStatus.CREATED);
 	}
+
 }

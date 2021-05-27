@@ -50,7 +50,7 @@ public class user {
 	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
 	private Collection<channel> channel; 
 	
-	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user")
 	private Collection<messages> messages;
 
 	@OneToMany(mappedBy = "userfriend")

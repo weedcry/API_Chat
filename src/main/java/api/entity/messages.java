@@ -1,15 +1,11 @@
 package api.entity;
 
-import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.Date;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name="messages")
@@ -22,7 +18,7 @@ public class messages {
 	@JoinColumn(name = "channel_id")
 	private channel_general channel_general;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private user user;
 	
@@ -31,8 +27,12 @@ public class messages {
 	private String content;
 	
 	private String Status;
-	
-	private Date datetime ;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date datetime;
 	
 	private long reply;
 	
@@ -54,13 +54,12 @@ public class messages {
 		this.channel_general = channel_general;
 	}
 
-	
 
-	public user getUser() {
+	public api.entity.user getUser() {
 		return user;
 	}
 
-	public void setUser(user user) {
+	public void setUser(api.entity.user user) {
 		this.user = user;
 	}
 
