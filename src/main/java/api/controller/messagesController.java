@@ -24,8 +24,8 @@ public class messagesController {
 	messagesService messagesS;
 
 	@GetMapping("/{channel_id}")
-	public ResponseEntity<List<messages>> findByChannel(@PathVariable long channel_id){
-		return new ResponseEntity<List<messages>>(messagesS.findByChannel(channel_id),HttpStatus.OK);
+	public ResponseEntity<List<messagesDTO>> findByChannel(@PathVariable long channel_id){
+		return new ResponseEntity<List<messagesDTO>>(messagesS.findByChannel(channel_id),HttpStatus.OK);
 	}
 
 	@GetMapping("/last/{channel_id}")

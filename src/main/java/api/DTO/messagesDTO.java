@@ -1,5 +1,6 @@
 package api.DTO;
 
+import api.entity.user;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,7 +11,7 @@ public class messagesDTO {
 	
 	private long channel_id;
 	
-	private String user_id;
+	private user user;
 	
 	private String type;
 	
@@ -41,12 +42,12 @@ public class messagesDTO {
 		this.channel_id = channel_id;
 	}
 
-	public String getUser_id() {
-		return user_id;
+	public api.entity.user getUser() {
+		return user;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUser(api.entity.user user) {
+		this.user = user;
 	}
 
 	public String getType() {

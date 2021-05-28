@@ -12,7 +12,7 @@ public class messagesConvert {
 	
 	public messages tomessages(messagesDTO mDTO) {
 		user u = new user();
-		u.setId(mDTO.getUser_id());
+		u.setId(mDTO.getUser().getId());
 		channel_general chan = new channel_general();
 		chan.setId(mDTO.getChannel_id());
 		messages m = new messages();
@@ -35,7 +35,7 @@ public class messagesConvert {
 		messagesDTO mDTO = new messagesDTO();
 		mDTO.setId(m.getId());
 		mDTO.setChannel_id(m.getChannel_general().getId());
-		mDTO.setUser_id(m.getUser().getId());
+		mDTO.setUser(m.getUser());
 		mDTO.setContent(m.getContent());
 		mDTO.setType(m.getType());
 		mDTO.setStatus(m.getStatus());
