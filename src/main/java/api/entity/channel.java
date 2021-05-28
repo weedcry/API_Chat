@@ -20,11 +20,7 @@ public class channel  {
 	private long id;
 
 	private String author_id; 
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private user user;
-	
+
 	private String topic;
 	
 	private String password;
@@ -50,14 +46,6 @@ public class channel  {
 
 	public void setAuthor_id(String author_id) {
 		this.author_id = author_id;
-	}
-	
-	public user getUser() {
-		return user;
-	}
-
-	public void setUser(user user) {
-		this.user = user;
 	}
 
 	public String getTopic() {

@@ -47,9 +47,6 @@ public class user {
 	@CreationTimestamp
 	private Date date_create;
 	
-	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-	private Collection<channel> channel; 
-	
 	@OneToMany(mappedBy = "user")
 	private Collection<messages> messages;
 

@@ -25,7 +25,7 @@ public class channelService {
 		ServiceResult result = new ServiceResult();
 		List<channel> listc = channelRes.findByauthorid(author_id);
 		if(listc.isEmpty()) {
-			System.out.println("fail");
+			System.out.println("fail" + author_id);
 			result.setMessage("channel not found");
 		}
 		return channelC.listchannelDTO(listc);
@@ -51,7 +51,7 @@ public class channelService {
 	
 	public Object update(channelDTO cDTO) {	
 		ServiceResult result = new ServiceResult();	
-		channel channeln = channelRes.findByUserId(cDTO.getId(),cDTO.getUser().getId());
+		channel channeln = channelRes.findOneByAuthorid(cDTO.getId(),cDTO.getUser().getId());
 		if(channeln == null) {
 			result.setMessage("channel not found");
 			return result.getMessage();

@@ -18,6 +18,10 @@ public class channel_general {
 	private long id;
 	
 	private String color;
+
+	private String photo;
+
+
 //	
 //	@OneToMany(mappedBy = "channel_general",fetch = FetchType.LAZY)
 //	private Collection<channel> channel;
@@ -43,12 +47,11 @@ public class channel_general {
 		this.color = color;
 	}
 
-//	public Collection<messages> getMessages() {
-//		return messages;
-//	}
-//
-//	public void setMessages(Collection<messages> messages) {
-//		this.messages = messages;
-//	}
+	public String getPhoto() {
+		return photo;
+	}
 
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 }
