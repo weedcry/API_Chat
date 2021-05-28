@@ -9,6 +9,8 @@ import api.DTO.channel_generalDTO;
 import api.entity.channel_general;
 import api.repository.channel_generalRepository;
 
+import java.util.List;
+
 @Service
 @Component
 public class channel_generalService {
@@ -17,18 +19,19 @@ public class channel_generalService {
 	
 	channel_generalConvert chanC = new channel_generalConvert();
 	
-	public Object findById(long id) {		
+	public Object findByUserid(String userid) {
 		ServiceResult result = new ServiceResult();
-		channel_general c = channel_generalRes.findById(id);
+		List<channel_general> c = channel_generalRes.findByUserid(userid);
 		if(c == null) {
 			System.out.println("fail");
 			result.setMessage("channel_general not found");
 			return result.getMessage();
 		}
-		System.out.println("succe");
-		System.out.println(c);
-		result.setData(chanC.tochannel_generalDTO(c));
-		return result.getData();
+//		System.out.println("succe");
+//		System.out.println(c);
+//		result.setData(chanC.tochannel_generalDTO(c));
+//		return result.getData();
+		return c;
 	}
 		
 	public Object delete(long id ) {

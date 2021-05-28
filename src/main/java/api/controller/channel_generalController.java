@@ -24,9 +24,14 @@ public class channel_generalController {
 	channel_generalService channel_generalS;
 	
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Object> findByUserId(@PathVariable long id){
-		return new ResponseEntity<Object>(channel_generalS.findById(id),HttpStatus.OK);	
+	@GetMapping("")
+	public ResponseEntity<Object> findByUserId(){
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
+		return new ResponseEntity<Object>(channel_generalS.findByUserid(username),HttpStatus.OK);
 	}	
 	
 	@DeleteMapping("/{id}")
