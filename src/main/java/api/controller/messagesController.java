@@ -6,6 +6,8 @@ import api.entity.messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,16 @@ public class messagesController {
 		return new ResponseEntity<messagesDTO>(messagesS.findMessageByChannel(channel_id),HttpStatus.OK);
 	}
 
+	@GetMapping("/last")
+	public ResponseEntity<List<messagesDTO>> findLastMessageByUserid(){
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+
+		}
+		return new ResponseEntity<List<messagesDTO>>(messagesS.findLastMessageChannel(username),HttpStatus.OK);
+	}
 	
 	@PutMapping("")
 	public ResponseEntity<Object> update(@RequestBody messagesDTO mDTO){

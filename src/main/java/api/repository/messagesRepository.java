@@ -16,7 +16,11 @@ public interface messagesRepository extends JpaRepository<messages,Long> {
 
 	@Query(value = "SELECT m.* FROM messages as m WHERE m.channel_id = ?1 and m.id = (SELECT MAX(m.id) FROM messages as m where m.channel_id = ?1)",nativeQuery = true)
 	messages findMessageByChannel_General(Long channel_general);
-		
-	
+
+	@Query(value = "select * from messages where id in(SELECT max(m.id) " +
+			"FROM (select * from messages where channel_id in (select id from channel where author_id = ?1)) as m  " +
+			"group by m.channel_id);",nativeQuery = true)
+	List<messages> findLastMessageByUserid(String userid);
+
 	
 }

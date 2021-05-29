@@ -23,10 +23,9 @@ public class messagesService {
 	
 	public List<messagesDTO> findByChannel(Long channel_id){
 		List<messages> list = messagesRes.findByChannel_General(channel_id);
-		for (messages messages : list) {
-			System.out.println(messages.getContent());
-		}
-
+//		for (messages messages : list) {
+//			System.out.println(messages.getContent());
+//		}
 		return messagesConv.listmessagesDTO(list);
 	}
 
@@ -34,6 +33,12 @@ public class messagesService {
 		messages messages = messagesRes.findMessageByChannel_General(channel_id);
 		return messagesConv.tomessagesDTO(messages);
 	}
+
+	public List<messagesDTO> findLastMessageChannel(String userid){
+		List<messages> list = messagesRes.findLastMessageByUserid(userid);
+		return messagesConv.listmessagesDTO(list);
+	}
+
 
 	public Object create(messagesDTO mDTO) {
 		System.out.println("mdto - "+mDTO.getDatetime());
