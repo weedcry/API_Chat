@@ -21,8 +21,6 @@ public class settingService {
 			result.setMessage("setting not found");
 			return result.getMessage();
 		}
-		System.out.println("succe");
-		System.out.println(s);
 		result.setData(s);
 		return result.getData();
 	}

@@ -21,17 +21,12 @@ public class channel_generalService {
 	
 	public Object findByUserid(String userid) {
 		ServiceResult result = new ServiceResult();
-		List<channel_general> c = channel_generalRes.findByUserid(userid);
-		if(c == null) {
-			System.out.println("fail");
+		List<channel_general> list = channel_generalRes.findByUserid(userid);
+		if(list == null) {
 			result.setMessage("channel_general not found");
 			return result.getMessage();
 		}
-//		System.out.println("succe");
-//		System.out.println(c);
-//		result.setData(chanC.tochannel_generalDTO(c));
-//		return result.getData();
-		return c;
+		return list;
 	}
 		
 	public Object delete(long id ) {

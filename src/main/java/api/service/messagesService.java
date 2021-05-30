@@ -21,21 +21,33 @@ public class messagesService {
 //	private messagesConvert messagesConv;
 	messagesConvert messagesConv = new messagesConvert();
 	
-	public List<messagesDTO> findByChannel(Long channel_id){
+	public Object findByChannel(Long channel_id){
+		ServiceResult result = new ServiceResult();
 		List<messages> list = messagesRes.findByChannel_General(channel_id);
-//		for (messages messages : list) {
-//			System.out.println(messages.getContent());
-//		}
+		if(list == null){
+			result.setMessage("messages not found");
+			return  result.getMessage();
+		}
 		return messagesConv.listmessagesDTO(list);
 	}
 
-	public messagesDTO findMessageByChannel(Long channel_id){
+	public Object findMessageByChannel(Long channel_id){
+		ServiceResult result = new ServiceResult();
 		messages messages = messagesRes.findMessageByChannel_General(channel_id);
+		if(messages == null){
+			result.setMessage("messages not found");
+			return  result.getMessage();
+		}
 		return messagesConv.tomessagesDTO(messages);
 	}
 
-	public List<messagesDTO> findLastMessageChannel(String userid){
+	public Object findLastMessageChannel(String userid){
+		ServiceResult result = new ServiceResult();
 		List<messages> list = messagesRes.findLastMessageByUserid(userid);
+		if(list == null){
+			result.setMessage("messages not found");
+			return  result.getMessage();
+		}
 		return messagesConv.listmessagesDTO(list);
 	}
 

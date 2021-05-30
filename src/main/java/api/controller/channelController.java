@@ -26,13 +26,13 @@ public class channelController {
 
 	
 	@GetMapping("/user")
-	public ResponseEntity<List<channelDTO>> findByAuthorid(){
+	public ResponseEntity<Object> findByAuthorid(){
 		String username = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
 		}
-		return new ResponseEntity<List<channelDTO>>(channelS.findByAuthor_id(username),HttpStatus.OK);
+		return new ResponseEntity<Object>(channelS.findByAuthor_id(username),HttpStatus.OK);
 	}
 
 //	@DeleteMapping("/{id}")

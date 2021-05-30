@@ -3,6 +3,7 @@ package api.controller;
 import java.util.List;
 
 import api.entity.messages;
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,24 +27,24 @@ public class messagesController {
 	messagesService messagesS;
 
 	@GetMapping("/{channel_id}")
-	public ResponseEntity<List<messagesDTO>> findByChannel(@PathVariable long channel_id){
-		return new ResponseEntity<List<messagesDTO>>(messagesS.findByChannel(channel_id),HttpStatus.OK);
+	public ResponseEntity<Object> findByChannel(@PathVariable long channel_id){
+		return new ResponseEntity<Object>(messagesS.findByChannel(channel_id),HttpStatus.OK);
 	}
 
 	@GetMapping("/last/{channel_id}")
-	public ResponseEntity<messagesDTO> findMessageByChannel(@PathVariable long channel_id){
-		return new ResponseEntity<messagesDTO>(messagesS.findMessageByChannel(channel_id),HttpStatus.OK);
+	public ResponseEntity<Object> findMessageByChannel(@PathVariable long channel_id){
+		return new ResponseEntity<Object>(messagesS.findMessageByChannel(channel_id),HttpStatus.OK);
 	}
 
 	@GetMapping("/last")
-	public ResponseEntity<List<messagesDTO>> findLastMessageByUserid(){
+	public ResponseEntity<Object> findLastMessageByUserid(){
 		String username = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
 
 		}
-		return new ResponseEntity<List<messagesDTO>>(messagesS.findLastMessageChannel(username),HttpStatus.OK);
+		return new ResponseEntity<Object>(messagesS.findLastMessageChannel(username),HttpStatus.OK);
 	}
 	
 	@PutMapping("")

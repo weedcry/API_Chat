@@ -20,13 +20,13 @@ public class friendController {
     friendService friendSer;
 
     @GetMapping("")
-    public ResponseEntity<List<friend>> findByChannel(){
+    public ResponseEntity<Object> findByChannel(){
         String username = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             username = ((UserDetails)principal).getUsername();
         }
-        return new ResponseEntity<List<friend>>(friendSer.findfriendById(username), HttpStatus.OK);
+        return new ResponseEntity<Object>(friendSer.findfriendById(username), HttpStatus.OK);
     }
 
     @PostMapping("")

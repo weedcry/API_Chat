@@ -31,6 +31,7 @@ public class channel_generalController {
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
 		}
+
 		return new ResponseEntity<Object>(channel_generalS.findByUserid(username),HttpStatus.OK);
 	}	
 	

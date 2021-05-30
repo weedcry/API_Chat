@@ -25,14 +25,13 @@ public class friendService {
     userService userService;
 
 
-    public List<friend> findfriendById(String id){
+    public Object findfriendById(String id){
         ServiceResult result = new ServiceResult();
         List<friend> list = friendRes.findById(id);
-        System.out.println(list.get(0).getId()
-                +"-"+list.get(0).getUserfriend().getDate_create()
-                +"-"+list.get(0).getUserfriend().getActive()
-                +"-"+list.get(0).getUserfriend().getBirthday()
-                +"-"+list.get(0).getUserfriend().getPhone());
+        if(list == null){
+            result.setMessage("userfriend not found");
+            return  result.getMessage();
+        }
         return list;
     }
 
