@@ -8,6 +8,7 @@ import api.entity.user;
 import java.util.Optional;
 
 public interface userRepository extends JpaRepository<user, String>{
+
 	user findById(String id);
 
 	@Query(value = "select * from user where user.id = ?1", nativeQuery = true)

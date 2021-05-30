@@ -10,6 +10,7 @@ public class channel_generalConvert {
 		channel_general chan = new channel_general();	
 		chan.setId(chanDTO.getId());
 		chan.setColor(chanDTO.getColor());
+		chan.setPhoto(chanDTO.getPhoto());
 		return chan;
 	}
 	
@@ -17,6 +18,7 @@ public class channel_generalConvert {
 		channel_generalDTO chanDTO = new channel_generalDTO();	
 		chanDTO.setId(chan.getId());
 		chanDTO.setColor(chan.getColor());
+		chanDTO.setPhoto(chan.getPhoto());
 		return chanDTO;
 	}
 	

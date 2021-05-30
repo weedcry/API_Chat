@@ -9,8 +9,7 @@ import api.entity.user;
 
 public class channelConvert {
 	
-	userConvert ucon = new userConvert();
-	
+
 	public channel tochannel(channelDTO cDTO) {
 		user u = new user();
 		u.setId(cDTO.getUser().getId());

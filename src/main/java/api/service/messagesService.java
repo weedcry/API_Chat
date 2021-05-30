@@ -53,15 +53,13 @@ public class messagesService {
 
 
 	public Object create(messagesDTO mDTO) {
-		System.out.println("mdto - "+mDTO.getDatetime());
 		ServiceResult result = new ServiceResult();
-		messagesRes.save(messagesConv.tomessages(mDTO));
-		result.setMessage("success");
-		return result.getMessage();
+//		result.setMessage("success");
+		result.setData(messagesConv.tomessagesDTO(messagesRes.save(messagesConv.tomessages(mDTO))));
+		return result.getData();
 	}
 
 	public Object createmess(messages m ) {
-		System.out.println("m  - "+m.getDatetime());
 		ServiceResult result = new ServiceResult();
 		messagesRes.save(m);
 		result.setMessage("success");

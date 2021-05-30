@@ -6,6 +6,8 @@ public class channel_generalDTO {
 	
 	private String color;
 
+	private  String photo;
+
 	public long getId() {
 		return id;
 	}
@@ -21,6 +23,12 @@ public class channel_generalDTO {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
-	
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 }

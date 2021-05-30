@@ -6,19 +6,18 @@ import api.DTO.messagesDTO;
 import api.entity.channel_general;
 import api.entity.messages;
 import api.entity.user;
+import api.service.userService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class messagesConvert {
 
-	//userService uService = new userService();
-	
 	public messages tomessages(messagesDTO mDTO) {
-		user u = new user();
-		u.setId(mDTO.getUser().getId());
 		channel_general chan = new channel_general();
 		chan.setId(mDTO.getChannel_id());
 		messages m = new messages();
 		m.setId(mDTO.getId());
 		m.setChannel_general(chan);
-		m.setUser(u);
+		m.setUser(mDTO.getUser());
 		m.setContent(mDTO.getContent());
 		m.setType(mDTO.getType());
 		m.setStatus(mDTO.getStatus());
