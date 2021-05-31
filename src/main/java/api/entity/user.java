@@ -3,13 +3,10 @@ package api.entity;
 import java.util.Date;
 import java.util.Collection;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="user")
@@ -24,8 +21,14 @@ public class user {
 	private String phone;
 	
 	private String photo;
-	
+
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
 	private Date  birthday;
+
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
+	private Date date_create;
 	
 	private int active = 0;
 
@@ -42,11 +45,6 @@ public class user {
 		this.phone = phone;
 	}
 
-	//	@Temporal(TemporalType.DATE)
-//	@DateTimeFormat(pattern ="dd/mm/yyyy")
-	@CreationTimestamp
-	private Date date_create;
-	
 	@OneToMany(mappedBy = "user")
 	private Collection<messages> messages;
 

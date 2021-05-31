@@ -40,11 +40,6 @@ public class messagesConvert {
 		mDTO.setStatus(m.getStatus());
 		mDTO.setReply(m.getReply());				
 		mDTO.setDatetime(m.getDatetime());
-		System.out.println("mess - "+m.getDatetime());
-		System.out.println("messDTO - "+mDTO.getDatetime());
-		long millis=System.currentTimeMillis();
-		java.util.Date date=new java.util.Date(millis);
-		System.out.println(date);
 		return mDTO;
 	}
 	
