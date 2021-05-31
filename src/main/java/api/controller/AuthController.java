@@ -69,7 +69,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         // Create new user's account
-        String linkphotodefault = "linkphotodefault";
+        String linkphotodefault = "https://s3.us-east-2.amazonaws.com/myawsbucketappfile/1622470096048-avatar.png";
 
         user u = new user(signUpRequest.getUsername(),
                 signUpRequest.getName(),

@@ -1,6 +1,7 @@
 package api.service;
 
 import api.DTO.MessageResponse;
+import api.DTO.userDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,15 +55,19 @@ public class userService implements UserDetailsService {
 	
 	public Object create(user u) {	
 		ServiceResult result = new ServiceResult();
-
 		if (userRes.existsById(u.getId())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
-		userRes.save(u);
+		try {
+			userRes.save(u);
 
-
+		}catch (Exception e){
+			return ResponseEntity
+					.ok()
+					.body(new MessageResponse("error"));
+		}
 		return ResponseEntity
 				.ok()
 				.body(new MessageResponse("User registered successfully!"));
@@ -80,6 +85,19 @@ public class userService implements UserDetailsService {
 		return result.getData();
 	}
 
-
+	public int updateAvatar(String username,String linkphoto){
+		user u = userRes.findById(username);
+		 if(u == null){
+		 	return 0;
+		 }
+		 u.setPhoto(linkphoto);
+		try {
+			userRes.save(u);
+		}catch (Exception e){
+			System.out.println("lỗi "+e);
+			return  0;
+		}
+		return  1;
+	}
 
 }

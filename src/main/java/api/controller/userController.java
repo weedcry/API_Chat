@@ -2,22 +2,17 @@ package api.controller;
 
 
 import api.DTO.MessageResponse;
+import api.config.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import api.entity.user;
 import api.service.userService;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
@@ -25,6 +20,13 @@ import api.service.userService;
 public class userController {
 	@Autowired
 	userService userS;
+
+	private AmazonClient amazonClient;
+
+	@Autowired
+	userController(AmazonClient amazonClient) {
+		this.amazonClient = amazonClient;
+	}
 	
 	@GetMapping("")
 	public ResponseEntity<Object> findByUserId(){
@@ -66,5 +68,19 @@ public class userController {
 				.badRequest()
 				.body(new MessageResponse("user not found!"));
 	}
+
+	@PostMapping("/uploadAvatar")
+	public String uploadAvatar(@RequestPart(value = "file") MultipartFile file) {
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
+		return this.amazonClient.uploadAvatar(file,username);
+	}
+
+
+
+
 
 }

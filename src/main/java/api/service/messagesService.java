@@ -54,12 +54,11 @@ public class messagesService {
 
 	public Object create(messagesDTO mDTO) {
 		ServiceResult result = new ServiceResult();
-//		result.setMessage("success");
 		result.setData(messagesConv.tomessagesDTO(messagesRes.save(messagesConv.tomessages(mDTO))));
 		return result.getData();
 	}
 
-	public Object createmess(messages m ) {
+	public Object createmessFile(messages m) {
 		ServiceResult result = new ServiceResult();
 		messagesRes.save(m);
 		result.setMessage("success");
