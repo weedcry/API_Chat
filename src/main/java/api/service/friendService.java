@@ -1,9 +1,7 @@
 package api.service;
 
 import api.DTO.messagesDTO;
-import api.entity.messages;
-import api.entity.setting;
-import api.entity.user;
+import api.entity.*;
 import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +10,7 @@ import org.springframework.stereotype.Service;
 import api.repository.friendRepository;
 
 import java.util.List;
-import api.entity.friend;
+
 import api.DTO.userDTO;
 
 @Service
@@ -34,6 +32,8 @@ public class friendService {
         }
         return list;
     }
+
+
 
     public Object inviteFriend(friend fri){
         ServiceResult result = new ServiceResult();

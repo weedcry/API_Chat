@@ -20,7 +20,7 @@ public class friendController {
     friendService friendSer;
 
     @GetMapping("")
-    public ResponseEntity<Object> findByChannel(){
+    public ResponseEntity<Object> findFriendById(){
         String username = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -29,10 +29,15 @@ public class friendController {
         return new ResponseEntity<Object>(friendSer.findfriendById(username), HttpStatus.OK);
     }
 
+
+
+
     @PostMapping("")
     public ResponseEntity<Object> sendInviteFriend(@RequestBody friend fri) {
         return new ResponseEntity<Object>(friendSer.inviteFriend(fri),HttpStatus.OK);
     }
+
+
 
     @PutMapping("")
     public ResponseEntity<Object> sendAcceptFriend(@RequestBody friend fri) {

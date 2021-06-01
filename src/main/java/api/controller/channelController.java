@@ -35,6 +35,16 @@ public class channelController {
 		return new ResponseEntity<Object>(channelS.findByAuthor_id(username),HttpStatus.OK);
 	}
 
+	@PostMapping("/{friendid}")
+	public ResponseEntity<Object> findchannelbyfriendId(@PathVariable String friendid) {
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
+		return new ResponseEntity<Object>(channelS.findchannelbyfriendId(username,friendid),HttpStatus.OK);
+	}
+
 //	@DeleteMapping("/{id}")
 //	public ResponseEntity<Object> delete(@PathVariable long id){
 //		return new ResponseEntity<Object>(channelS.delete(id),HttpStatus.OK);	

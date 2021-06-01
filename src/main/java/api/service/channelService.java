@@ -59,4 +59,15 @@ public class channelService {
 		result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
 		return result.getData();
 	}
+
+	public Object findchannelbyfriendId(String username,String friendid){
+		ServiceResult result = new ServiceResult();
+		channel c = channelRes.findchannelbyfriend(username,friendid);
+		if(c == null){
+			result.setMessage("not found");
+			return result.getMessage();
+		}
+		return c;
+	}
+
 }
