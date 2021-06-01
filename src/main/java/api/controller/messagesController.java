@@ -1,7 +1,9 @@
 package api.controller;
 
+import java.io.File;
 import java.util.List;
 
+import api.DTO.FileResponse;
 import api.config.AmazonClient;
 import api.entity.messages;
 import org.omg.CORBA.OBJ_ADAPTER;
@@ -63,8 +65,8 @@ public class messagesController {
 	}
 
 	@PostMapping("/uploadFile")
-	public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
-		return this.amazonClient.uploadFile(file);
+	public ResponseEntity<FileResponse>uploadFile(@RequestPart(value = "file") MultipartFile file) {
+		return new ResponseEntity<FileResponse>(amazonClient.uploadFile(file),HttpStatus.OK);
 	}
 
 	@DeleteMapping("/deleteFile")

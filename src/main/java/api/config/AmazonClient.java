@@ -1,6 +1,7 @@
 package api.config;
 
 
+import api.DTO.FileResponse;
 import api.service.messagesService;
 import api.service.userService;
 import com.amazonaws.auth.AWSCredentials;
@@ -64,7 +65,7 @@ public class AmazonClient {
                 .withCannedAcl(CannedAccessControlList.PublicRead));
     }
 
-    public String uploadFile(MultipartFile multipartFile) {
+    public FileResponse uploadFile(MultipartFile multipartFile) {
 
         String fileUrl = "";
         try {
@@ -76,12 +77,11 @@ public class AmazonClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        return fileUrl;
+        FileResponse fileResponse = new FileResponse(fileUrl);
+        return fileResponse;
     }
 
-    public String uploadAvatar(MultipartFile multipartFile,String username) {
+    public Object uploadAvatar(MultipartFile multipartFile,String username) {
 
         String fileUrl = "";
         try {
@@ -94,7 +94,8 @@ public class AmazonClient {
             e.printStackTrace();
         }
         if(userService.updateAvatar(username,fileUrl) == 1){
-            return fileUrl;
+            FileResponse fileResponse = new FileResponse(fileUrl);
+            return fileResponse;
         }else{
             return "error";
         }

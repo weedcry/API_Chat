@@ -1,6 +1,7 @@
 package api.controller;
 
 
+import api.DTO.FileResponse;
 import api.DTO.MessageResponse;
 import api.config.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,15 +71,19 @@ public class userController {
 	}
 
 	@PostMapping("/uploadAvatar")
-	public String uploadAvatar(@RequestPart(value = "file") MultipartFile file) {
+	public ResponseEntity<Object> uploadAvatar(@RequestPart(value = "file") MultipartFile file) {
 		String username = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
 		}
-		return this.amazonClient.uploadAvatar(file,username);
+		return  new ResponseEntity<Object>(amazonClient.uploadAvatar(file,username),HttpStatus.OK);
 	}
 
+	@PostMapping("/uploadFile")
+	public ResponseEntity<FileResponse>uploadFile(@RequestPart(value = "file") MultipartFile file) {
+		return new ResponseEntity<FileResponse>(amazonClient.uploadFile(file),HttpStatus.OK);
+	}
 
 
 
