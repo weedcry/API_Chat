@@ -61,8 +61,8 @@ public class channelService {
 		userDTO u = (userDTO)userSer.findById(userid);
 		userDTO u1 = (userDTO)userSer.findById(friendid);
 		channel_generalDTO chanDTO = (channel_generalDTO )channel_generalSer.create();
-		channelDTO cDTO = new channelDTO(chanDTO.getId(),u.getName(),u1.getName(),"null","1","1");
-		channelDTO c1DTO = new channelDTO(chanDTO.getId(),u1.getName(),u.getName(),"null","1","1");
+		channelDTO cDTO = new channelDTO(chanDTO.getId(),u.getId(),u1.getName(),"null","1","1");
+		channelDTO c1DTO = new channelDTO(chanDTO.getId(),u1.getId(),u.getName(),"null","1","1");
 		ServiceResult result = new ServiceResult();
 		
 		channelRes.save(channelC.tochannel(c1DTO));
