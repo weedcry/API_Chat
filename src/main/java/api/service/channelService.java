@@ -87,11 +87,7 @@ public class channelService {
 		channel c = channelRes.findchannelbyfriend(username,friendid);
 		if(c == null){
 			result.setMessage("not found");
-			channel.channeluser ch = new channel.channeluser();
-			ch.setId(0);
-			ch.setAuthor_id("null");
-			c.setChanneluser(ch);
-			return  c;
+			return result.getMessage();
 		}
 		return c;
 	}
