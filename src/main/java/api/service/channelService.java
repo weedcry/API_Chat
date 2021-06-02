@@ -64,12 +64,10 @@ public class channelService {
 		channelDTO cDTO = new channelDTO(chanDTO.getId(),u.getName(),u1.getName(),"null","1","1");
 		channelDTO c1DTO = new channelDTO(chanDTO.getId(),u1.getName(),u.getName(),"null","1","1");
 		ServiceResult result = new ServiceResult();
-		try {
-			channelRes.save(channelC.tochannel(c1DTO));
-			result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
-		}catch (Exception e){
+		
+		channelRes.save(channelC.tochannel(c1DTO));
+		result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
 
-		}
 		return result.getData();
 	}
 	
