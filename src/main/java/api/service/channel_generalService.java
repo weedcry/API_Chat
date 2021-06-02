@@ -48,6 +48,7 @@ public class channel_generalService {
 		channel_generalDTO chanDTO = new channel_generalDTO();
 		chanDTO.setColor("black");
 		chanDTO.setPhoto("https://s3.us-east-2.amazonaws.com/myawsbucketappfile/1622610729701-img_group.jpg");
+//		chanDTO.setPhoto(photo);
 
 		ServiceResult result = new ServiceResult();	
 		result.setData(chanC.tochannel_generalDTO(channel_generalRes.save(chanC.tochannel_general(chanDTO))));

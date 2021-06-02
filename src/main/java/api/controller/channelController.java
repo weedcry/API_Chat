@@ -2,6 +2,8 @@ package api.controller;
 
 import java.util.List;
 
+import api.DTO.MessageResponse;
+import api.entity.channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +44,7 @@ public class channelController {
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
 		}
+
 		return new ResponseEntity<Object>(channelS.findchannelbyfriendId(username,friendid),HttpStatus.OK);
 	}
 

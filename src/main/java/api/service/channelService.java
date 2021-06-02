@@ -3,18 +3,19 @@ package api.service;
 import java.io.IOException;
 import java.util.List;
 
+import api.DTO.MessageResponse;
 import api.DTO.channel_generalDTO;
 import api.DTO.userDTO;
 import api.entity.channel_general;
 import api.entity.user;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import api.Convert.channelConvert;
 import api.DTO.channelDTO;
 import api.entity.channel;
-import api.DTO.MessageResponse;
 import api.repository.channelRepository;
 
 @Service
@@ -57,9 +58,9 @@ public class channelService {
 //	}
 	
 	public Object create(String userid,String friendid) {
-		channel_generalDTO chanDTO = (channel_generalDTO )channel_generalSer.create();
 		userDTO u = (userDTO)userSer.findById(userid);
 		userDTO u1 = (userDTO)userSer.findById(friendid);
+		channel_generalDTO chanDTO = (channel_generalDTO )channel_generalSer.create();
 		channelDTO cDTO = new channelDTO(chanDTO.getId(),u.getName(),u1.getName(),"null","1","1");
 		channelDTO c1DTO = new channelDTO(chanDTO.getId(),u1.getName(),u.getName(),"null","1","1");
 		ServiceResult result = new ServiceResult();
@@ -87,7 +88,6 @@ public class channelService {
 		ServiceResult result = new ServiceResult();
 		channel c = channelRes.findchannelbyfriend(username,friendid);
 		if(c == null){
-			result.setMessage("not found");
 			MessageResponse mes = new MessageResponse("not found");
 			return mes;
 		}
