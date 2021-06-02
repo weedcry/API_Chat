@@ -55,13 +55,13 @@ public class channelController {
 		return new ResponseEntity<Object>(channelS.update(cDTO),HttpStatus.OK);
 	}
 	
-	@PostMapping("/create")
-	public ResponseEntity<Object> create(@RequestBody channelDTO cDTO){
+	@PostMapping("/create/{friendid}")
+	public ResponseEntity<Object> create(@PathVariable String friendid){
 		String username = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
 		}
-		return new ResponseEntity<Object>(channelS.create(cDTO),HttpStatus.CREATED);
+		return new ResponseEntity<Object>(channelS.create(username,friendid),HttpStatus.CREATED);
 	}
 }
