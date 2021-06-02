@@ -6,8 +6,6 @@ public class channelDTO {
 	
 	private String author_id;
 	
-	private userDTO user;
-	
 	private String topic;
 	
 	private String password;
@@ -16,6 +14,18 @@ public class channelDTO {
 	
 	private String exits;
 
+	public channelDTO() {
+	}
+
+	public channelDTO(long id, String author_id, String topic, String password, String status, String exits) {
+		this.id = id;
+		this.author_id = author_id;
+		this.topic = topic;
+		this.password = password;
+		this.status = status;
+		this.exits = exits;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -23,8 +33,6 @@ public class channelDTO {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	
 	
 	public String getAuthor_id() {
 		return author_id;
@@ -32,14 +40,6 @@ public class channelDTO {
 
 	public void setAuthor_id(String author_id) {
 		this.author_id = author_id;
-	}
-
-	public userDTO getUser() {
-		return user;
-	}
-
-	public void setUser(userDTO user) {
-		this.user = user;
 	}
 
 	public String getTopic() {

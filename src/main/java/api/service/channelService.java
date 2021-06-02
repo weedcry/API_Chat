@@ -1,7 +1,13 @@
 package api.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import api.DTO.channel_generalDTO;
+import api.DTO.userDTO;
+import api.entity.channel_general;
+import api.entity.user;
+import javafx.scene.control.TextFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -16,7 +22,8 @@ import api.repository.channelRepository;
 public class channelService {
 	@Autowired
 	channelRepository channelRes;
-	
+
+
 	channelConvert channelC = new channelConvert();
 
 	
@@ -43,20 +50,26 @@ public class channelService {
 //		return result.getMessage();	
 //	}
 	
-	public Object create(channelDTO cDTO) {	
-		ServiceResult result = new ServiceResult();	
-		result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
+	public Object create(channelDTO cDTO ) {
+
+		ServiceResult result = new ServiceResult();
+		try {
+			result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
+
+		}catch (Exception e){
+
+		}
 		return result.getData();
 	}
 	
 	public Object update(channelDTO cDTO) {	
-		ServiceResult result = new ServiceResult();	
-		channel channeln = channelRes.findOneByAuthorid(cDTO.getId(),cDTO.getUser().getId());
-		if(channeln == null) {
-			result.setMessage("channel not found");
-			return result.getMessage();
-		}
-		result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
+		ServiceResult result = new ServiceResult();
+//		channel channeln = channelRes.findOneByAuthorid(cDTO.getId(),cDTO.getUser().getId());
+//		if(channeln == null) {
+//			result.setMessage("channel not found");
+//			return result.getMessage();
+//		}
+//		result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
 		return result.getData();
 	}
 

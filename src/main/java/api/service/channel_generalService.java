@@ -18,7 +18,10 @@ public class channel_generalService {
 	channel_generalRepository channel_generalRes;
 	
 	channel_generalConvert chanC = new channel_generalConvert();
-	
+
+
+
+
 	public Object findByUserid(String userid) {
 		ServiceResult result = new ServiceResult();
 		List<channel_general> list = channel_generalRes.findByUserid(userid);
@@ -41,7 +44,11 @@ public class channel_generalService {
 		return result.getMessage();	
 	}
 	
-	public Object create(channel_generalDTO chanDTO) {	
+	public Object create() {
+		channel_generalDTO chanDTO = new channel_generalDTO();
+		chanDTO.setColor("black");
+		chanDTO.setPhoto("https://s3.us-east-2.amazonaws.com/myawsbucketappfile/1622610729701-img_group.jpg");
+
 		ServiceResult result = new ServiceResult();	
 		result.setData(chanC.tochannel_generalDTO(channel_generalRes.save(chanC.tochannel_general(chanDTO))));
 		return result.getData();

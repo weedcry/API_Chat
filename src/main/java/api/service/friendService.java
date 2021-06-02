@@ -26,6 +26,10 @@ public class friendService {
     public Object findfriendById(String id){
         ServiceResult result = new ServiceResult();
         List<friend> list = friendRes.findById(id);
+        for(friend f : list){
+            System.out.println("-"+f.getUserfriend().getId());
+        }
+
         if(list == null){
             result.setMessage("userfriend not found");
             return  result.getMessage();

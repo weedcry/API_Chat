@@ -9,8 +9,7 @@ import java.util.List;
 
 public interface friendRepository  extends JpaRepository<friend,String> {
 
+    @Query(value = "SELECT DISTINCT * FROM friend WHERE id = ?1",nativeQuery = true)
     List<friend> findById(String id);
-
-
 
 }

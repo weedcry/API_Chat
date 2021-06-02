@@ -51,12 +51,17 @@ public class channelController {
 //	}
 	
 	@PutMapping("")
-	public ResponseEntity<Object> update(@RequestBody channelDTO uDTO){	
-		return new ResponseEntity<Object>(channelS.update(uDTO),HttpStatus.OK);
+	public ResponseEntity<Object> update(@RequestBody channelDTO cDTO){
+		return new ResponseEntity<Object>(channelS.update(cDTO),HttpStatus.OK);
 	}
 	
-	@PostMapping("")
-	public ResponseEntity<Object> create(@RequestBody channelDTO uDTO){
-		return new ResponseEntity<Object>(channelS.create(uDTO),HttpStatus.CREATED);
+	@PostMapping("/create")
+	public ResponseEntity<Object> create(@RequestBody channelDTO cDTO){
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
+		return new ResponseEntity<Object>(channelS.create(cDTO),HttpStatus.CREATED);
 	}
 }

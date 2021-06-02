@@ -33,8 +33,9 @@ public class channel_generalController {
 		}
 
 		return new ResponseEntity<Object>(channel_generalS.findByUserid(username),HttpStatus.OK);
-	}	
-	
+	}
+
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> delete(@PathVariable long id){
 		return new ResponseEntity<Object>(channel_generalS.delete(id),HttpStatus.OK);	
@@ -45,8 +46,8 @@ public class channel_generalController {
 		return new ResponseEntity<Object>(channel_generalS.update(chanDTO),HttpStatus.OK);
 	}
 	
-	@PostMapping("")
-	public ResponseEntity<Object> create(@RequestBody channel_generalDTO chanDTO){
-		return new ResponseEntity<Object>(channel_generalS.create(chanDTO),HttpStatus.CREATED);
+	@GetMapping("/create")
+	public ResponseEntity<Object> create(){
+		return new ResponseEntity<Object>(channel_generalS.create(),HttpStatus.CREATED);
 	}
 }

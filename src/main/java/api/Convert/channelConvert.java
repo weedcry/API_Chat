@@ -12,9 +12,6 @@ public class channelConvert {
 
 	public channel tochannel(channelDTO cDTO) {
 		user u = new user();
-		u.setId(cDTO.getUser().getId());
-		u.setName(cDTO.getUser().getName());
-		u.setPhoto(cDTO.getUser().getPhoto());
 		channel c = new channel();	
 		c.setId(cDTO.getId());
 		c.setAuthor_id(cDTO.getAuthor_id());
