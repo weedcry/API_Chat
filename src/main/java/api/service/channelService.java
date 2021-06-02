@@ -23,7 +23,6 @@ public class channelService {
 	@Autowired
 	channelRepository channelRes;
 
-
 	channelConvert channelC = new channelConvert();
 
 	
@@ -64,12 +63,12 @@ public class channelService {
 	
 	public Object update(channelDTO cDTO) {	
 		ServiceResult result = new ServiceResult();
-//		channel channeln = channelRes.findOneByAuthorid(cDTO.getId(),cDTO.getUser().getId());
-//		if(channeln == null) {
-//			result.setMessage("channel not found");
-//			return result.getMessage();
-//		}
-//		result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
+		channel channeln = channelRes.findOneByAuthorid(cDTO.getId(),cDTO.getAuthor_id());
+		if(channeln == null) {
+			result.setMessage("channel not found");
+			return result.getMessage();
+		}
+		result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
 		return result.getData();
 	}
 
