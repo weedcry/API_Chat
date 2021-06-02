@@ -87,7 +87,9 @@ public class channelService {
 		channel c = channelRes.findchannelbyfriend(username,friendid);
 		if(c == null){
 			result.setMessage("not found");
-			return result.getMessage();
+			return ResponseEntity
+					.ok()
+					.body(new MessageResponse("not found!"));
 		}
 		return c;
 	}
