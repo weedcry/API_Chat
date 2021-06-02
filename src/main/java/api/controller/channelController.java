@@ -37,7 +37,7 @@ public class channelController {
 		return new ResponseEntity<Object>(channelS.findByAuthor_id(username),HttpStatus.OK);
 	}
 
-	@GetMapping("/{friendid}")
+	@GetMapping("/find/{friendid}")
 	public ResponseEntity<Object> findchannelbyfriendId(@PathVariable String friendid) {
 		String username = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
