@@ -1,12 +1,8 @@
 package api.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
@@ -16,10 +12,8 @@ public class channel  {
 //	@ManyToOne()
 //	@JoinColumn(name="channel_id")
 //	private channel_general channel_general;
-	@Id
-	private long id;
-
-	private String author_id; 
+	@EmbeddedId
+	private  channeluser channeluser;
 
 	private String topic;
 	
@@ -27,25 +21,39 @@ public class channel  {
 	
 	private String status;
 	
-	private String exits;	
+	private String exits;
 
+	@Embeddable
+	public static class channeluser implements Serializable {
+		@Column(name = "id")
+		private long id;
 
+		@Column(name = "author_id")
+		private String author_id;
 
+		public long getId() {
+			return id;
+		}
 
-	public long getId() {
-		return id;
+		public void setId(long id) {
+			this.id = id;
+		}
+
+		public String getAuthor_id() {
+			return author_id;
+		}
+
+		public void setAuthor_id(String author_id) {
+			this.author_id = author_id;
+		}
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public channel.channeluser getChanneluser() {
+		return channeluser;
 	}
 
-	public String getAuthor_id() {
-		return author_id;
-	}
-
-	public void setAuthor_id(String author_id) {
-		this.author_id = author_id;
+	public void setChanneluser(channel.channeluser channeluser) {
+		this.channeluser = channeluser;
 	}
 
 	public String getTopic() {

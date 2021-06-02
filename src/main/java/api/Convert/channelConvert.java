@@ -12,9 +12,11 @@ public class channelConvert {
 
 	public channel tochannel(channelDTO cDTO) {
 		user u = new user();
-		channel c = new channel();	
-		c.setId(cDTO.getId());
-		c.setAuthor_id(cDTO.getAuthor_id());
+		channel c = new channel();
+		channel.channeluser ch = new channel.channeluser();
+		ch.setId(cDTO.getId());
+		ch.setAuthor_id(cDTO.getAuthor_id());
+		c.setChanneluser(ch);
 		c.setTopic(cDTO.getTopic());
 		c.setPassword(cDTO.getPassword());
 		c.setStatus(cDTO.getStatus());
@@ -25,8 +27,8 @@ public class channelConvert {
 	public channelDTO tochannelDTO(channel c) {
 
 		channelDTO cDTO = new channelDTO();
-		cDTO.setId(c.getId());
-		cDTO.setAuthor_id(c.getAuthor_id());
+		cDTO.setId(c.getChanneluser().getId());
+		cDTO.setAuthor_id(c.getChanneluser().getAuthor_id());
 		cDTO.setTopic(c.getTopic());
 		cDTO.setPassword(c.getPassword());
 		cDTO.setStatus(c.getStatus());
