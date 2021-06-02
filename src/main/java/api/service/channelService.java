@@ -89,7 +89,7 @@ public class channelService {
 			MessageResponse mes = new MessageResponse("not found");
 			return mes;
 		}
-		return c;
+		return channelC.tochannelDTO(c);
 	}
 
 }
