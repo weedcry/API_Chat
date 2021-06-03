@@ -3,6 +3,7 @@ package api.controller;
 import java.util.List;
 
 import api.DTO.MessageResponse;
+import api.DTO.userDTO;
 import api.entity.channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,4 +68,16 @@ public class channelController {
 		}
 		return new ResponseEntity<Object>(channelS.create(username,friendid),HttpStatus.CREATED);
 	}
+
+    @PostMapping("/create/group")
+    public ResponseEntity<Object> creategroup(@RequestBody List<userDTO> list){
+        String username = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        }
+        return new ResponseEntity<Object>(channelS.creategroup(username,list),HttpStatus.CREATED);
+    }
+
+
 }

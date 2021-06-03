@@ -19,6 +19,7 @@ public class channelConvert {
 		c.setChanneluser(ch);
 		c.setTopic(cDTO.getTopic());
 		c.setPassword(cDTO.getPassword());
+		c.setPhoto(cDTO.getPhoto());
 		c.setStatus(cDTO.getStatus());
 		c.setExits(cDTO.getStatus());	
 		return c;
@@ -31,6 +32,7 @@ public class channelConvert {
 		cDTO.setAuthor_id(c.getChanneluser().getAuthor_id());
 		cDTO.setTopic(c.getTopic());
 		cDTO.setPassword(c.getPassword());
+		cDTO.setPhoto(c.getPhoto());
 		cDTO.setStatus(c.getStatus());
 		cDTO.setExits(c.getStatus());		
 		return cDTO;
@@ -42,7 +44,6 @@ public class channelConvert {
 		for (channel c : listc) {
 			list.add(tochannelDTO(c));
 		}
-		
 		return list;
 	}
 	

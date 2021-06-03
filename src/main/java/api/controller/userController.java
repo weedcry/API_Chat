@@ -51,8 +51,8 @@ public class userController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
-
 		}
+
 		return new ResponseEntity<Object>(userS.delete(username),HttpStatus.OK);
 	}
 	
@@ -65,6 +65,7 @@ public class userController {
 				return new ResponseEntity<Object>(userS.update(u),HttpStatus.OK);
 			}
 		}
+
 		return ResponseEntity
 				.badRequest()
 				.body(new MessageResponse("user not found!"));

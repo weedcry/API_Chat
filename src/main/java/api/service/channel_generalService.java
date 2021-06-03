@@ -1,5 +1,6 @@
 package api.service;
 
+import api.DTO.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,16 @@ public class channel_generalService {
 	channel_generalRepository channel_generalRes;
 	
 	channel_generalConvert chanC = new channel_generalConvert();
+
+	public Object findByid(long id) {
+		ServiceResult result = new ServiceResult();
+		channel_general ch = channel_generalRes.findById(id);
+		if(ch == null) {
+			MessageResponse mes = new MessageResponse("channel_general not found");
+			return mes;
+		}
+		return ch;
+	}
 
 
 
@@ -47,7 +58,7 @@ public class channel_generalService {
 	public Object create() {
 		channel_generalDTO chanDTO = new channel_generalDTO();
 		chanDTO.setColor("black");
-		chanDTO.setPhoto("https://s3.us-east-2.amazonaws.com/myawsbucketappfile/1622610729701-img_group.jpg");
+		chanDTO.setPhoto("photo");
 //		chanDTO.setPhoto(photo);
 
 		ServiceResult result = new ServiceResult();	

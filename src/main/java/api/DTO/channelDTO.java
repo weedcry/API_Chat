@@ -9,7 +9,9 @@ public class channelDTO {
 	private String topic;
 	
 	private String password;
-	
+
+	private String photo;
+
 	private String status;
 	
 	private String exits;
@@ -17,11 +19,12 @@ public class channelDTO {
 	public channelDTO() {
 	}
 
-	public channelDTO(long id, String author_id, String topic, String password, String status, String exits) {
+	public channelDTO(long id, String author_id, String topic, String password, String photo, String status, String exits) {
 		this.id = id;
 		this.author_id = author_id;
 		this.topic = topic;
 		this.password = password;
+		this.photo = photo;
 		this.status = status;
 		this.exits = exits;
 	}
@@ -56,6 +59,14 @@ public class channelDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	public String getStatus() {

@@ -3,6 +3,7 @@ package api.service;
 import java.io.IOException;
 import java.util.List;
 
+import api.Convert.userConvert;
 import api.DTO.MessageResponse;
 import api.DTO.channel_generalDTO;
 import api.DTO.userDTO;
@@ -31,6 +32,7 @@ public class channelService {
 	userService userSer;
 
 
+	userConvert userConvert = new userConvert();
 	channelConvert channelC = new channelConvert();
 
 	
@@ -61,15 +63,46 @@ public class channelService {
 		userDTO u = (userDTO)userSer.findById(userid);
 		userDTO u1 = (userDTO)userSer.findById(friendid);
 		channel_generalDTO chanDTO = (channel_generalDTO )channel_generalSer.create();
-		channelDTO cDTO = new channelDTO(chanDTO.getId(),u.getId(),u1.getName(),"null","1","1");
-		channelDTO c1DTO = new channelDTO(chanDTO.getId(),u1.getId(),u.getName(),"null","1","1");
+		channelDTO cDTO = new channelDTO(chanDTO.getId(),u.getId(),u1.getName(),"null",u1.getPhoto(),"1","1");
+		channelDTO c1DTO = new channelDTO(chanDTO.getId(),u1.getId(),u.getName(),"null",u.getPhoto(),"1","1");
 		ServiceResult result = new ServiceResult();
-		
-		channelRes.save(channelC.tochannel(c1DTO));
-		result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
+		try {
+			channelRes.save(channelC.tochannel(c1DTO));
+			result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
+		}catch (Exception e){
 
+		}
 		return result.getData();
 	}
+
+	public Object creategroup(String userid,List<userDTO> listfriendid) {
+//		userDTO u = (userDTO)userSer.findById(userid);
+		String[] worduserid = userid.split("\\s");
+		String photogr = "https://s3.us-east-2.amazonaws.com/myawsbucketappfile/1622610729701-img_group.jpg";
+		channel_generalDTO chanDTO = (channel_generalDTO )channel_generalSer.create();
+		String namegr = worduserid[worduserid.length-1];
+		for(userDTO udto : listfriendid ){
+			String[] words = udto.getName().split("\\s");
+			namegr+=","+words[words.length-1];
+		}
+		for(userDTO udto : listfriendid ){
+			channelDTO c1DTO = new channelDTO(chanDTO.getId(),udto.getId(),namegr,"null",photogr,"1","1");
+			try {
+				channelRes.save(channelC.tochannel(c1DTO));
+			}catch (Exception e){
+			}
+		}
+		channelDTO cDTO = new channelDTO(chanDTO.getId(),userid,namegr,"null",photogr,"1","1");
+		ServiceResult result = new ServiceResult();
+		try {
+			result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
+		}catch (Exception e){
+
+		}
+		return result.getData();
+	}
+
+
 	
 	public Object update(channelDTO cDTO) {	
 		ServiceResult result = new ServiceResult();

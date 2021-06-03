@@ -29,15 +29,10 @@ public class friendController {
         return new ResponseEntity<Object>(friendSer.findfriendById(username), HttpStatus.OK);
     }
 
-
-
-
     @PostMapping("")
     public ResponseEntity<Object> sendInviteFriend(@RequestBody friend fri) {
         return new ResponseEntity<Object>(friendSer.inviteFriend(fri),HttpStatus.OK);
     }
-
-
 
     @PutMapping("")
     public ResponseEntity<Object> sendAcceptFriend(@RequestBody friend fri) {
@@ -48,5 +43,6 @@ public class friendController {
     public ResponseEntity<Object> sendDeleteFriend(@RequestBody friend fri) {
         return new ResponseEntity<Object>(friendSer.deletefriend(fri),HttpStatus.OK);
     }
+
 
 }

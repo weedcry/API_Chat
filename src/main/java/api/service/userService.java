@@ -35,14 +35,13 @@ public class userService implements UserDetailsService {
 		user u = userRes.findById(id);
 		if(u == null) {
 			result.setMessage("user not found");
-			MessageResponse mes = new MessageResponse("user not found");
-			return mes;
+			return result.getMessage();
 		}
 		result.setData(uconvert.touserDTO(u));
 		return result.getData();
 	}
 		
-	public Object delete(String id ) {
+	public Object delete(String id) {
 		ServiceResult result = new ServiceResult();
 		user u = userRes.findById(id);
 		if(u == null) {
@@ -53,6 +52,7 @@ public class userService implements UserDetailsService {
 		result.setMessage("success");
 		return result.getMessage();	
 	}
+
 	
 	public Object create(user u) {	
 		ServiceResult result = new ServiceResult();
@@ -76,15 +76,11 @@ public class userService implements UserDetailsService {
 
 
 	public Object update(user u) {	
-		ServiceResult result = new ServiceResult();	
-		user usern = userRes.findById(u.getId());
-		if(usern == null) {
-			result.setMessage("user not found");
-			return result.getMessage();
-		}
+		ServiceResult result = new ServiceResult();
 		result.setData(uconvert.touserDTO(userRes.save(u)));
 		return result.getData();
 	}
+
 
 	public int updateAvatar(String username,String linkphoto){
 		user u = userRes.findById(username);

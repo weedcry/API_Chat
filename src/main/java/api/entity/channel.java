@@ -18,6 +18,8 @@ public class channel  {
 	private String topic;
 	
 	private String password;
+
+	private String photo;
 	
 	private String status;
 	
@@ -49,6 +51,7 @@ public class channel  {
 	}
 
 	public channel.channeluser getChanneluser() {
+
 		return channeluser;
 	}
 
@@ -70,6 +73,14 @@ public class channel  {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	public String getStatus() {

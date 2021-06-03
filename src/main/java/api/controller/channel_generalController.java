@@ -24,7 +24,7 @@ public class channel_generalController {
 	channel_generalService channel_generalS;
 	
 	
-	@GetMapping("")
+	@GetMapping("/user")
 	public ResponseEntity<Object> findByUserId(){
 		String username = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -33,6 +33,11 @@ public class channel_generalController {
 		}
 
 		return new ResponseEntity<Object>(channel_generalS.findByUserid(username),HttpStatus.OK);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Object> findById(@PathVariable long id){
+		return new ResponseEntity<Object>(channel_generalS.findByid(id),HttpStatus.OK);
 	}
 
 
@@ -46,8 +51,8 @@ public class channel_generalController {
 		return new ResponseEntity<Object>(channel_generalS.update(chanDTO),HttpStatus.OK);
 	}
 	
-	@GetMapping("/create")
-	public ResponseEntity<Object> create(){
-		return new ResponseEntity<Object>(channel_generalS.create(),HttpStatus.CREATED);
-	}
+//	@GetMapping("/create")
+//	public ResponseEntity<Object> create(){
+//		return new ResponseEntity<Object>(channel_generalS.create(),HttpStatus.CREATED);
+//	}
 }
