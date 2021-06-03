@@ -48,7 +48,7 @@ public class user {
 	@OneToMany(mappedBy = "user")
 	private Collection<messages> messages;
 
-	@OneToMany(mappedBy = "userfriend")
+	@OneToMany(mappedBy = "userfriend.friend")
 	private Collection<friend> friend;
 
 

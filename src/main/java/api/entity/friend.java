@@ -4,45 +4,63 @@ package api.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "friend")
 //@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class friend {
-    @Id
-    private String id;
+    @EmbeddedId
+    private userfriend userfriend;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "friend_id")
-    private  user userfriend;
-
+    //0 gửi lời mời kb
+    //1 đã là bạn
+    //2 nhận đc lời mời kb
     private int friend_active;
 
     private int active;
 
+    @Embeddable
+    public static class userfriend implements Serializable {
+        @Column(name = "id")
+        private String id;
+
+        @ManyToOne(fetch = FetchType.EAGER)
+        @JoinColumn(name = "friend_id")
+        private user friend;
+
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public user getFriend() {
+            return friend;
+        }
+
+        public void setFriend(user friend) {
+            this.friend = friend;
+        }
+    }
+
     public friend() {
     }
 
-    public friend(String id, user userfriend, int friend_active, int active) {
-        this.id = id;
+    public friend(friend.userfriend userfriend, int friend_active, int active) {
         this.userfriend = userfriend;
         this.friend_active = friend_active;
         this.active = active;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public user getUserfriend() {
+    public friend.userfriend getUserfriend() {
         return userfriend;
     }
 
-    public void setUserfriend(user userfriend) {
+    public void setUserfriend(friend.userfriend userfriend) {
         this.userfriend = userfriend;
     }
 

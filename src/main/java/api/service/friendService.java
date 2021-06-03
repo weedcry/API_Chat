@@ -1,5 +1,7 @@
 package api.service;
 
+import api.Convert.friendConvert;
+import api.DTO.friendDTO;
 import api.DTO.messagesDTO;
 import api.entity.*;
 import org.omg.CORBA.OBJ_ADAPTER;
@@ -22,6 +24,7 @@ public class friendService {
     @Autowired
     userService userService;
 
+    friendConvert friendConvert = new friendConvert();
 
     public Object findfriendById(String id){
         ServiceResult result = new ServiceResult();
@@ -34,25 +37,37 @@ public class friendService {
             result.setMessage("userfriend not found");
             return  result.getMessage();
         }
-        return list;
+        return friendConvert.listfriendDTO(list);
     }
 
 
 
-    public Object inviteFriend(friend fri){
+    public Object inviteFriend(String username,user friend){
         ServiceResult result = new ServiceResult();
-        friendRes.save(fri);
+        user u = (user) userService.findById(username);
+        friendDTO fr = new friendDTO(username,friend,0,friend.getActive());
+        friendDTO fr1 = new friendDTO(friend.getId(),u,2,u.getActive());
+        try {
+            friendRes.save(friendConvert.tofriend(fr));
+            friendRes.save(friendConvert.tofriend(fr1));
+        }catch (Exception e){
+
+        }
         result.setMessage("success");
         return result.getMessage();
     }
 
-    public Object acceptFriend(friend fri){
+    public Object acceptFriend(String username,friendDTO fr1){
         ServiceResult result = new ServiceResult();
+        user u = (user) userService.findById(username);
+        friendDTO fr = new friendDTO(fr1.getId(),u,1,u.getActive());
+        fr1.setFriend_active(1);
+        try {
+            friendRes.save(friendConvert.tofriend(fr));
+            friendRes.save(friendConvert.tofriend(fr1));
+        }catch (Exception e){
 
-        user u = (user) userService.findById(fri.getId());
-        friend friendaccept = new friend(fri.getUserfriend().getId(),u,1,u.getActive());
-        friendRes.save(friendaccept);
-        friendRes.save(fri);
+        }
         result.setMessage("success");
         return result.getMessage();
     }
