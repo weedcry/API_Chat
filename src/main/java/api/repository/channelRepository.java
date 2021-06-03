@@ -18,6 +18,6 @@ public interface channelRepository extends JpaRepository<channel,Long> {
 	channel findOneByAuthorid(Long id ,String author_id);
 
 	@Query(value = "select * from channel where author_id = ?1 and id in (select id from channel where author_id = ?2);", nativeQuery = true)
-	channel findchannelbyfriend(String username,String friendid);
+	List<channel> findchannelbyfriend(String username,String friendid);
 
 }

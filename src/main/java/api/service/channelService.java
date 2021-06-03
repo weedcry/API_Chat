@@ -117,12 +117,25 @@ public class channelService {
 
 	public Object findchannelbyfriendId(String username,String friendid){
 		ServiceResult result = new ServiceResult();
-		channel c = channelRes.findchannelbyfriend(username,friendid);
-		if(c == null){
-			MessageResponse mes = new MessageResponse("not found");
-			return mes;
-		}
-		return channelC.tochannelDTO(c);
+		List<channel> list = channelRes.findchannelbyfriend(username,friendid);
+		System.out.println("size "+list.size());
+        if(list == null){
+            MessageResponse mes = new MessageResponse("not found");
+            return mes;
+        }
+        if(list.size() == 1){
+            return channelC.tochannelDTO(list.get(0));
+        }
+
+        // nhiều channel
+        for(channel c : list){
+            String[] words = c.getTopic().split(",");
+            if(words.length == 1){
+                return channelC.tochannelDTO(c);
+            }
+        }
+        MessageResponse mes = new MessageResponse("not found");
+        return mes;
 	}
 
 }
