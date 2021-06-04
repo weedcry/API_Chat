@@ -42,19 +42,19 @@ public class friendService {
 
 
 
-    public Object inviteFriend(String username,user friend){
+       public Object inviteFriend(String username,user friend){
         ServiceResult result = new ServiceResult();
         user u = (user) userService.findById(username);
         friendDTO fr = new friendDTO(username,friend,0,friend.getActive());
         friendDTO fr1 = new friendDTO(friend.getId(),u,2,u.getActive());
         try {
-            friendRes.save(friendConvert.tofriend(fr));
+            result.setData(friendConvert.tofriendDTO(friendRes.save(friendConvert.tofriend(fr))));
             friendRes.save(friendConvert.tofriend(fr1));
         }catch (Exception e){
 
         }
         result.setMessage("success");
-        return result.getMessage();
+        return result.getData();
     }
 
     public Object acceptFriend(String username,friendDTO fr1){
