@@ -55,7 +55,6 @@ public class friendService {
         }catch (Exception e){
 
         }
-        result.setMessage("success");
         return result.getData();
     }
 
@@ -70,15 +69,15 @@ public class friendService {
         }catch (Exception e){
 
         }
-        result.setMessage("success");
-        return result.getMessage();
+        MessageResponse mes = new MessageResponse("success");
+        return mes;
     }
 
     public Object deletefriend(friend fri){
         ServiceResult result = new ServiceResult();
         friendRes.delete(fri);
-        result.setMessage("success");
-        return result.getMessage();
+        MessageResponse mes = new MessageResponse("success");
+        return mes;
     }
 
 
