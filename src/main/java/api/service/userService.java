@@ -31,7 +31,8 @@ public class userService implements UserDetailsService {
 	}
 
 	
-	public Object findById(String id) {		
+	public Object findById(String id) {
+		id = id+".com";
 		ServiceResult result = new ServiceResult();
 		user u = userRes.findById(id);
 		if(u == null) {
