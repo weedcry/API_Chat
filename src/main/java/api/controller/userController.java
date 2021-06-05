@@ -42,6 +42,7 @@ public class userController {
 
 	@GetMapping("/find/{id}")
 	public ResponseEntity<Object> finduser(@PathVariable String id){
+		id = id+".com";
 		return new ResponseEntity<Object>(userS.findById(id),HttpStatus.OK);
 	}
 	

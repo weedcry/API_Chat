@@ -1,6 +1,7 @@
 package api.service;
 
 import api.Convert.friendConvert;
+import api.Convert.userConvert;
 import api.DTO.friendDTO;
 import api.DTO.messagesDTO;
 import api.entity.*;
@@ -25,6 +26,7 @@ public class friendService {
     userService userService;
 
     friendConvert friendConvert = new friendConvert();
+    userConvert userConvert = new userConvert();
 
     public Object findfriendById(String id){
         ServiceResult result = new ServiceResult();
@@ -44,7 +46,7 @@ public class friendService {
 
     public Object inviteFriend(String username,user friend){
         ServiceResult result = new ServiceResult();
-        user u = (user) userService.findById(username);
+        user u =  userConvert.touser((userDTO) userService.findById(username));
         friendDTO fr = new friendDTO(username,friend,0,friend.getActive());
         friendDTO fr1 = new friendDTO(friend.getId(),u,2,u.getActive());
         try {

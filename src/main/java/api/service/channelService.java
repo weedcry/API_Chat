@@ -61,7 +61,8 @@ public class channelService {
 	
 	public Object create(String userid,String friendid) {
 		userDTO u = (userDTO)userSer.findById(userid);
-		friendid= friendid+".com";
+		friendid = friendid+".com";
+		System.out.println("a-"+friendid);
 		userDTO u1 = (userDTO)userSer.findById(friendid);
 		channel_generalDTO chanDTO = (channel_generalDTO )channel_generalSer.create();
 		channelDTO cDTO = new channelDTO(chanDTO.getId(),u.getId(),u1.getName(),"null",u1.getPhoto(),1,1);
