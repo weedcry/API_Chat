@@ -12,14 +12,14 @@ public class channelDTO {
 
 	private String photo;
 
-	private String status;
+	private int status;
 	
-	private String exits;
+	private int exits;
 
 	public channelDTO() {
 	}
 
-	public channelDTO(long id, String author_id, String topic, String password, String photo, String status, String exits) {
+	public channelDTO(long id, String author_id, String topic, String password, String photo, int status, int exits) {
 		this.id = id;
 		this.author_id = author_id;
 		this.topic = topic;
@@ -69,22 +69,19 @@ public class channelDTO {
 		this.photo = photo;
 	}
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
-	public String getExits() {
+	public int getExits() {
 		return exits;
 	}
 
-	public void setExits(String exits) {
+	public void setExits(int exits) {
 		this.exits = exits;
 	}
-	
-	
-	
 }

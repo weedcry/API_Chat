@@ -70,7 +70,7 @@ public class userService implements UserDetailsService {
 		}catch (Exception e){
 			return ResponseEntity
 					.ok()
-					.body(new MessageResponse("error"));
+					.body(new MessageResponse("error"+e));
 		}
 		return ResponseEntity
 				.ok()

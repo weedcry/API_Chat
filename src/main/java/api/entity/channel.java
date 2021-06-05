@@ -21,9 +21,9 @@ public class channel  {
 
 	private String photo;
 	
-	private String status;
+	private int status;
 	
-	private String exits;
+	private int exits;
 
 	@Embeddable
 	public static class channeluser implements Serializable {
@@ -83,22 +83,19 @@ public class channel  {
 		this.photo = photo;
 	}
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
-	public String getExits() {
+	public int getExits() {
 		return exits;
 	}
 
-	public void setExits(String exits) {
+	public void setExits(int exits) {
 		this.exits = exits;
-	}	
-
-	
-	
+	}
 }

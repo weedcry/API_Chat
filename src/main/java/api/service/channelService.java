@@ -63,8 +63,8 @@ public class channelService {
 		userDTO u = (userDTO)userSer.findById(userid);
 		userDTO u1 = (userDTO)userSer.findById(friendid);
 		channel_generalDTO chanDTO = (channel_generalDTO )channel_generalSer.create();
-		channelDTO cDTO = new channelDTO(chanDTO.getId(),u.getId(),u1.getName(),"null",u1.getPhoto(),"1","1");
-		channelDTO c1DTO = new channelDTO(chanDTO.getId(),u1.getId(),u.getName(),"null",u.getPhoto(),"1","1");
+		channelDTO cDTO = new channelDTO(chanDTO.getId(),u.getId(),u1.getName(),"null",u1.getPhoto(),1,1);
+		channelDTO c1DTO = new channelDTO(chanDTO.getId(),u1.getId(),u.getName(),"null",u.getPhoto(),1,1);
 		ServiceResult result = new ServiceResult();
 		try {
 			channelRes.save(channelC.tochannel(c1DTO));
@@ -86,13 +86,13 @@ public class channelService {
 			namegr+=","+words[words.length-1];
 		}
 		for(userDTO udto : listfriendid ){
-			channelDTO c1DTO = new channelDTO(chanDTO.getId(),udto.getId(),namegr,"null",photogr,"1","1");
+			channelDTO c1DTO = new channelDTO(chanDTO.getId(),udto.getId(),namegr,"null",photogr,1,1);
 			try {
 				channelRes.save(channelC.tochannel(c1DTO));
 			}catch (Exception e){
 			}
 		}
-		channelDTO cDTO = new channelDTO(chanDTO.getId(),userid,namegr,"null",photogr,"1","1");
+		channelDTO cDTO = new channelDTO(chanDTO.getId(),userid,namegr,"null",photogr,1,1);
 		ServiceResult result = new ServiceResult();
 		try {
 			result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
