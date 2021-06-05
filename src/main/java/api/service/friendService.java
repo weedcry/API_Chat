@@ -3,6 +3,7 @@ package api.service;
 import api.Convert.friendConvert;
 import api.Convert.userConvert;
 import api.DTO.friendDTO;
+import api.DTO.MessageResponse;
 import api.DTO.messagesDTO;
 import api.entity.*;
 import org.omg.CORBA.OBJ_ADAPTER;
