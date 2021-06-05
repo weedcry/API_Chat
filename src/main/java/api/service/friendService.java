@@ -42,7 +42,7 @@ public class friendService {
 
 
 
-       public Object inviteFriend(String username,user friend){
+    public Object inviteFriend(String username,user friend){
         ServiceResult result = new ServiceResult();
         user u = (user) userService.findById(username);
         friendDTO fr = new friendDTO(username,friend,0,friend.getActive());

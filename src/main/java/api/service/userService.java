@@ -2,6 +2,7 @@ package api.service;
 
 import api.DTO.MessageResponse;
 import api.DTO.userDTO;
+import api.controller.settingController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -63,6 +64,8 @@ public class userService implements UserDetailsService {
 		}
 		try {
 			userRes.save(u);
+			settingController settingCon = new settingController();
+			settingCon.create(u.getId());
 
 		}catch (Exception e){
 			return ResponseEntity
