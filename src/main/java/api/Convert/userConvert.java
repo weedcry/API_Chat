@@ -3,6 +3,9 @@ package api.Convert;
 import api.DTO.userDTO;
 import api.entity.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class userConvert {
 	
 	public user touser(userDTO udto) {
@@ -19,6 +22,7 @@ public class userConvert {
 	}
 	
 	public userDTO touserDTO(user u) {
+
 		userDTO udto = new userDTO();
 		udto.setId(u.getId());
 		udto.setName(u.getName());

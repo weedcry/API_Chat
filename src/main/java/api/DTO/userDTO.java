@@ -1,5 +1,9 @@
 package api.DTO;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 public class userDTO {
@@ -13,9 +17,9 @@ public class userDTO {
 	private String phone;
 	
 	private String photo;
-	
+
 	private Date  birthday;
-	
+
 	private Date date_create;
 	
 	private int active;
@@ -76,7 +80,7 @@ public class userDTO {
 	public void setDate_create(Date date_create) {
 		this.date_create = date_create;
 	}
-	
+
 	public int getActive() {
 		return active;
 	}

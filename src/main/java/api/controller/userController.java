@@ -3,6 +3,7 @@ package api.controller;
 
 import api.DTO.FileResponse;
 import api.DTO.MessageResponse;
+import api.DTO.userDTO;
 import api.config.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,7 +59,7 @@ public class userController {
 	}
 	
 	@PutMapping("")
-	public ResponseEntity<Object> update(@RequestBody user u){
+	public ResponseEntity<Object> update(@RequestBody userDTO u){
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(principal instanceof UserDetails){
 			String username = ((UserDetails) principal).getUsername();

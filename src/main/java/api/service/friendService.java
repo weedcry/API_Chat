@@ -2,8 +2,8 @@ package api.service;
 
 import api.Convert.friendConvert;
 import api.Convert.userConvert;
-import api.DTO.friendDTO;
 import api.DTO.MessageResponse;
+import api.DTO.friendDTO;
 import api.DTO.messagesDTO;
 import api.entity.*;
 import org.omg.CORBA.OBJ_ADAPTER;
@@ -61,7 +61,7 @@ public class friendService {
 
     public Object acceptFriend(String username,friendDTO fr1){
         ServiceResult result = new ServiceResult();
-         user u =  userConvert.touser((userDTO) userService.findById(username));
+        user u =  userConvert.touser((userDTO) userService.findById(username));
         friendDTO fr = new friendDTO(fr1.getId(),u,1,u.getActive());
         fr1.setFriend_active(1);
         try {
