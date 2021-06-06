@@ -81,7 +81,9 @@ public class userService implements UserDetailsService {
 
 	public Object update(user u) {	
 		ServiceResult result = new ServiceResult();
-		result.setData(uconvert.touserDTO(userRes.save(u)));
+// 		result.setData(uconvert.touserDTO(userRes.save(u)));
+		userRes.save(u);
+		result.setData(findById(u.getId()));
 		return result.getData();
 	}
 
