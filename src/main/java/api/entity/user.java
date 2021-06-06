@@ -36,13 +36,14 @@ public class user {
 
 	}
 
-	public user(String id, String name, String password, String photo, Date birthday, String phone) {
+	public user(String id, String name, String password, String photo, Date birthday, String phone, Date date_create) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.photo = photo;
 		this.birthday = birthday;
 		this.phone = phone;
+		this.date_create = date_create;
 	}
 
 	@OneToMany(mappedBy = "user")

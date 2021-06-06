@@ -65,6 +65,7 @@ public class userService implements UserDetailsService {
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
 		try {
+
 			userRes.save(u);
 			settingController settingCon = new settingController();
 			settingCon.create(u.getId());

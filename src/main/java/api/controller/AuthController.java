@@ -70,10 +70,10 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         // Create new user's account
         String linkphotodefault = "https://s3.us-east-2.amazonaws.com/myawsbucketappfile/1622470096048-avatar.png";
-
+        java.util.Date date =new java.util.Date();
         user u = new user(signUpRequest.getUsername(),
                 signUpRequest.getName(),
-                encoder.encode(signUpRequest.getPassword()),linkphotodefault,signUpRequest.getBirthday(),signUpRequest.getPhone());
+                encoder.encode(signUpRequest.getPassword()),linkphotodefault,signUpRequest.getBirthday(),signUpRequest.getPhone(),date);
         return (ResponseEntity<?>) userS.create(u);
     }
 
