@@ -78,8 +78,8 @@ public class channelService {
 	}
 
 	public Object creategroup(String userid,List<userDTO> listfriendid) {
-//		userDTO u = (userDTO)userSer.findById(userid);
-		String[] worduserid = userid.split("\\s");
+		userDTO uid = (userDTO)userSer.findById(userid);
+		String[] worduserid = uid.getName().split("\\s");
 		String photogr = "https://s3.us-east-2.amazonaws.com/myawsbucketappfile/1622610729701-img_group.jpg";
 		channel_generalDTO chanDTO = (channel_generalDTO )channel_generalSer.create();
 		String namegr = worduserid[worduserid.length-1];
