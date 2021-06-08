@@ -39,7 +39,8 @@ public class userService implements UserDetailsService {
 		user u = userRes.findById(id);
 		if(u == null) {
 			result.setMessage("user not found");
-			return result.getMessage();
+			MessageResponse mes = new MessageResponse("user not found");
+			return mes;
 		}
 
 		result.setData(uconvert.touserDTO(u));
@@ -51,11 +52,13 @@ public class userService implements UserDetailsService {
 		user u = userRes.findById(id);
 		if(u == null) {
 			result.setMessage("user not found");
-			return result.getMessage();
+			MessageResponse mes = new MessageResponse("user not found");
+			return mes;
 		}
 		userRes.delete(u);
 		result.setMessage("success");
-		return result.getMessage();	
+		MessageResponse mes = new MessageResponse("success");
+		return mes;
 	}
 
 	
