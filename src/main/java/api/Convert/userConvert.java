@@ -4,7 +4,9 @@ import api.DTO.userDTO;
 import api.entity.user;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class userConvert {
 	
@@ -33,6 +35,16 @@ public class userConvert {
 		udto.setDate_create(u.getDate_create());
 		udto.setActive(u.getActive());
 		return udto;
+	}
+
+	public List<userDTO> tolistDTO(List<user> list)
+	{
+		List<userDTO> listDTO = new ArrayList<>(); ;
+		for(user u : list) {
+			listDTO.add(touserDTO(u));
+		}
+
+		return listDTO;
 	}
 
 }

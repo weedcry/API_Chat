@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import api.entity.user;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface userRepository extends JpaRepository<user, String>{
@@ -15,6 +16,9 @@ public interface userRepository extends JpaRepository<user, String>{
 	Optional<user> findByUserName(String id);
 
 	Boolean existsById(String id);
+
+	@Query(value= "select * from user where id in ( select author_id from channel where id = ?)",nativeQuery = true)
+	List<user> findlistuserbychannelid(Long id);
 
 	
 }

@@ -15,6 +15,8 @@ import api.Convert.userConvert;
 import api.entity.user;
 import api.repository.userRepository;
 
+import java.util.List;
+
 @Service
 @Component
 public class userService implements UserDetailsService {
@@ -99,6 +101,13 @@ public class userService implements UserDetailsService {
 			return  0;
 		}
 		return  1;
+	}
+
+	public List<userDTO> listuserbychannelid(long id) {
+
+		List<user> list = userRes.findlistuserbychannelid(id);
+
+		return 	uconvert.tolistDTO(list);
 	}
 
 }
