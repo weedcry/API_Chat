@@ -3,6 +3,7 @@ package api.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import api.service.messagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -28,9 +29,13 @@ public class WebSocketController {
     @Autowired
     userService userService;
 
+    @Autowired
+    messagesService messagesService;
+
     @MessageMapping("/chat.sendMessage/{channelId}/{userId}")
     public void sendMessage(@Payload messagesDTO message,@DestinationVariable long channelId,@DestinationVariable String userId) {
         //them message vao db
+        messagesService.create(message);
 
         System.out.println("Receive Message: "+ message.getContent());
         //tu channel_id gui tu client se tim dc cac user thuoc channel_id do
@@ -38,9 +43,11 @@ public class WebSocketController {
         listUser = userService.listuserbychannelid(channelId);
         System.out.println("Size" +listUser.size());
         for(int i=0;i<listUser.size();i++) {
-            if(listUser.get(i).getId().equals(userId)) continue;
+//            if(listUser.get(i).getId().equals(userId)) continue;
             System.out.println("/message_receive/"+listUser.get(i).getId());
-            simpMessagingTemplate.convertAndSend("/message_receive/"+listUser.get(i).getId(),message);
+            String[] fn = listUser.get(i).getId().split("\\.");
+            String username = fn[0];
+            simpMessagingTemplate.convertAndSend("/message_receive/"+username,message);
         }
 
 
