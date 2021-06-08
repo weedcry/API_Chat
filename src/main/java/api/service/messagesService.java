@@ -2,6 +2,7 @@ package api.service;
 
 import java.util.List;
 
+import api.DTO.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -60,9 +61,14 @@ public class messagesService {
 
 	public Object createmessFile(messages m) {
 		ServiceResult result = new ServiceResult();
-		messagesRes.save(m);
+		try{
+			messagesRes.save(m);
+		}catch (Exception e){
+
+		}
 		result.setMessage("success");
-		return result.getMessage();
+		MessageResponse mes = new MessageResponse("success");
+		return mes;
 	}
 	
 	// chưa update 
@@ -70,8 +76,8 @@ public class messagesService {
 		ServiceResult result = new ServiceResult();	
 		messages messagesn = messagesRes.findById(mDTO.getId(),mDTO.getChannel_id());
 		if(messagesn == null) {
-			result.setMessage("messages not found");
-			return result.getMessage();
+			MessageResponse mes = new MessageResponse("messages not found");
+			return mes;
 		}
 		messagesRes.save(messagesConv.tomessages(mDTO));
 		return mDTO;

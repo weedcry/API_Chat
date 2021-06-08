@@ -11,7 +11,6 @@ public class channelConvert {
 	
 
 	public channel tochannel(channelDTO cDTO) {
-		user u = new user();
 		channel c = new channel();
 		channel.channeluser ch = new channel.channeluser();
 		ch.setId(cDTO.getId());
@@ -21,7 +20,7 @@ public class channelConvert {
 		c.setPassword(cDTO.getPassword());
 		c.setPhoto(cDTO.getPhoto());
 		c.setStatus(cDTO.getStatus());
-		c.setExits(cDTO.getStatus());	
+		c.setExits(cDTO.getExits());
 		return c;
 	}
 	

@@ -113,7 +113,11 @@ public class channelService {
 			result.setMessage("channel not found");
 			return result.getMessage();
 		}
-		result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
+		try {
+			channel ch = channelC.tochannel(cDTO);
+			channelRes.save(ch);
+			result.setData(cDTO);
+		}catch (Exception e){}
 		return result.getData();
 	}
 
@@ -125,9 +129,9 @@ public class channelService {
             MessageResponse mes = new MessageResponse("not found");
             return mes;
         }
-        if(list.size() == 1){
-            return channelC.tochannelDTO(list.get(0));
-        }
+//        if(list.size() == 1){
+//            return channelC.tochannelDTO(list.get(0));
+//        }
 
         // nhiều channel
         for(channel c : list){
