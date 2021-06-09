@@ -102,7 +102,7 @@ public class userController {
 		userDTO ue = new userDTO();
 		if (list.size() >2){
 			MessageResponse mess = new MessageResponse("channel");
-			return new ResponseEntity<Object>(mess,HttpStatus.OK);
+			return new ResponseEntity<Object>(mess,HttpStatus.BAD_REQUEST);
 		}
 		for(userDTO u : list){
 			if(u.getId().equals(username)) continue;
