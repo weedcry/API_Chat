@@ -16,6 +16,8 @@ import api.entity.user;
 import api.service.userService;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -89,6 +91,25 @@ public class userController {
 	}
 
 
+	@GetMapping("channel/{id}")
+	public ResponseEntity<Object>userfromChannel(@PathVariable long id) {
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
+		List<userDTO> list = userS.listuserbychannelid(id);
+		userDTO ue = new userDTO();
+		if (list.size() >2){
+			MessageResponse mess = new MessageResponse("channel");
+			return new ResponseEntity<Object>(mess,HttpStatus.OK);
+		}
+		for(userDTO u : list){
+			if(u.getId().equals(username)) continue;
+			ue = u;
+		}
 
+		return new ResponseEntity<Object>(ue,HttpStatus.OK);
+	}
 
 }

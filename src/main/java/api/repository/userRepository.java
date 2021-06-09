@@ -17,7 +17,7 @@ public interface userRepository extends JpaRepository<user, String>{
 
 	Boolean existsById(String id);
 
-	@Query(value= "select * from user where id in ( select author_id from channel where id = ?)",nativeQuery = true)
+	@Query(value= "select * from user where id in ( select author_id from channel where id = ? and exits =1)",nativeQuery = true)
 	List<user> findlistuserbychannelid(Long id);
 
 	
