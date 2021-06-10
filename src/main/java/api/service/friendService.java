@@ -62,7 +62,7 @@ public class friendService {
     public Object acceptFriend(String username,friendDTO fr1){
         ServiceResult result = new ServiceResult();
         user u =  userConvert.touser((userDTO) userService.findById(username));
-        friendDTO fr = new friendDTO(fr1.getId(),u,1,u.getActive());
+        friendDTO fr = new friendDTO(fr1.getFriend().getId(),u,1,u.getActive());
         fr1.setFriend_active(1);
         try {
             friendRes.save(friendConvert.tofriend(fr));
