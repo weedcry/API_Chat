@@ -74,9 +74,12 @@ public class friendService {
         return mes;
     }
 
-    public Object deletefriend(friend fri){
+    public Object deletefriend(friendDTO fri){
         ServiceResult result = new ServiceResult();
-        friendRes.delete(fri);
+        user u =  userConvert.touser((userDTO) userService.findById(fri.getId()));
+        friendDTO fr = new friendDTO(fri.getFriend().getId(),u,1,u.getActive());
+        friendRes.delete(friendConvert.tofriend(fri));
+        friendRes.delete(friendConvert.tofriend(fr));
         MessageResponse mes = new MessageResponse("success");
         return mes;
     }

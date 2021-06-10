@@ -53,7 +53,7 @@ public class friendController {
     }
 
     @DeleteMapping("")
-    public ResponseEntity<Object> sendDeleteFriend(@RequestBody friend fri) {
+    public ResponseEntity<Object> sendDeleteFriend(@RequestBody friendDTO fri) {
         return new ResponseEntity<Object>(friendSer.deletefriend(fri),HttpStatus.OK);
     }
 
