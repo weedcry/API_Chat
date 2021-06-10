@@ -12,6 +12,9 @@ public class setting {
 	private int nofitication;
 	private int can_find;
 
+	public setting() {
+	}
+
 	public setting(String id, int nofitication, int can_find) {
 		this.id = id;
 		this.nofitication = nofitication;

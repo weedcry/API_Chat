@@ -1,5 +1,6 @@
 package api.service;
 
+import api.DTO.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class settingService {
 		if(s == null) {
 			System.out.println("fail");
 			result.setMessage("setting not found");
-			return result.getMessage();
+			MessageResponse mes = new MessageResponse("setting not found");
+			return mes;
 		}
 		result.setData(s);
 		return result.getData();
@@ -29,8 +31,8 @@ public class settingService {
 		ServiceResult result = new ServiceResult();
 		setting u = settingRes.findById(id);
 		if(u == null) {
-			result.setMessage("setting not found");
-			return result.getMessage();
+			MessageResponse mes = new MessageResponse("setting not found");
+			return mes;
 		}
 		settingRes.delete(u);
 		result.setMessage("success");

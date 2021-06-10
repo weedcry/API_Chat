@@ -3,6 +3,8 @@ package api.service;
 import api.DTO.MessageResponse;
 import api.DTO.userDTO;
 import api.controller.settingController;
+import api.entity.setting;
+import api.repository.settingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +24,10 @@ import java.util.List;
 public class userService implements UserDetailsService {
 	@Autowired
 	userRepository userRes;
-	
+
+	@Autowired
+	settingRepository settingRes;
+
 	userConvert uconvert = new userConvert();
 
 	@Override
@@ -82,10 +87,9 @@ public class userService implements UserDetailsService {
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
 		try {
-
 			userRes.save(u);
-			settingController settingCon = new settingController();
-			settingCon.create(u.getId());
+			setting sett = new setting(u.getId(),1,1);
+			settingRes.save(sett);
 
 		}catch (Exception e){
 			return ResponseEntity

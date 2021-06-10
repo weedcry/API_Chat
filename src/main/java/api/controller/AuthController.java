@@ -5,9 +5,11 @@ import api.DTO.LoginRequest;
 import api.DTO.MessageResponse;
 import api.DTO.SignupRequest;
 import api.common.JwtUtils;
+import api.entity.setting;
 import api.entity.user;
 import api.repository.userRepository;
 import api.service.UserDetailsImpl;
+import api.service.settingService;
 import api.service.userService;
 import org.h2.tools.Console;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,9 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Autowired
+    settingService settingS;
 
     @PostMapping("/signin")
     public ResponseEntity<?> signinUser(@Validated @RequestBody LoginRequest loginRequest) throws ParseException {

@@ -46,7 +46,6 @@ public class settingController {
 
 	public void create(String id){
 		setting sett = new setting(id,1,1);
-		settingService settingSer = new settingService() ;
-		settingSer.create(sett);
+		settingS.create(sett);
 	}
 }
