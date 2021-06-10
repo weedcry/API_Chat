@@ -34,7 +34,6 @@ public class userService implements UserDetailsService {
 
 	
 	public Object findById(String id) {
-//		id = id+".com";
 		ServiceResult result = new ServiceResult();
 		user u = userRes.findById(id);
 		if(u == null) {
@@ -43,6 +42,19 @@ public class userService implements UserDetailsService {
 			return mes;
 		}
 
+		result.setData(uconvert.touserDTO(u));
+		return result.getData();
+	}
+
+
+	public Object finduserById(String id) {
+		ServiceResult result = new ServiceResult();
+		user u = userRes.finduserbyid(id);
+		if(u == null) {
+			result.setMessage("user not found");
+			MessageResponse mes = new MessageResponse("user not found");
+			return mes;
+		}
 		result.setData(uconvert.touserDTO(u));
 		return result.getData();
 	}

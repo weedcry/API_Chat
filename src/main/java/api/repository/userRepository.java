@@ -20,5 +20,8 @@ public interface userRepository extends JpaRepository<user, String>{
 	@Query(value= "select * from user where id in ( select author_id from channel where id = ? and exits =1)",nativeQuery = true)
 	List<user> findlistuserbychannelid(Long id);
 
+	@Query(value = "select * from user where id = ?1 and (select can_find from setting where id = ?1) = 1", nativeQuery = true)
+	user finduserbyid(String id);
+
 	
 }
