@@ -114,6 +114,13 @@ public class channelService {
 			return result.getMessage();
 		}
 		List<channel> list = channelRes.findByid(cDTO.getId());
+		if(list.size() == 2){
+			try {
+				channelRes.save(channelC.tochannel(cDTO));
+				result.setData(cDTO);
+			}catch (Exception e){}
+			return result.getData();
+		}
 		try {
 			for(channel ch : list){
 				ch.setTopic(cDTO.getTopic());
