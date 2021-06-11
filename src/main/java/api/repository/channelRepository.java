@@ -8,7 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import api.entity.channel;
 
 public interface channelRepository extends JpaRepository<channel,Long> {
-	
+
+	@Query(value = "SELECT * FROM channel  where id = ?1", nativeQuery = true)
+	List<channel> findByid(long id);
+
 	// hiển thị tất cả channel user tham gia 
 	@Query(value = "SELECT c.* FROM channel as c where c.author_id = ?1 and exits = 1", nativeQuery = true)
 	List<channel> findByauthorid(String author_id);

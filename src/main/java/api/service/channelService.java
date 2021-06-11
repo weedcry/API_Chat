@@ -113,9 +113,12 @@ public class channelService {
 			result.setMessage("channel not found");
 			return result.getMessage();
 		}
+		List<channel> list = channelRes.findByid(cDTO.getId());
 		try {
-			channel ch = channelC.tochannel(cDTO);
-			channelRes.save(ch);
+			for(channel ch : list){
+				ch.setTopic(cDTO.getTopic());
+				channelRes.save(ch);
+			}
 			result.setData(cDTO);
 		}catch (Exception e){}
 		return result.getData();
