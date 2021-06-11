@@ -45,7 +45,7 @@ public class channelController {
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
 		}
-
+		friendid = friendid+".com";
 		return new ResponseEntity<Object>(channelS.findchannelbyfriendId(username,friendid),HttpStatus.OK);
 	}
 
