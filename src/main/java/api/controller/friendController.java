@@ -29,7 +29,11 @@ public class friendController {
         if (principal instanceof UserDetails) {
             username = ((UserDetails)principal).getUsername();
         }
-        return new ResponseEntity<Object>(friendSer.findfriendById(username), HttpStatus.OK);
+        List<friendDTO> listDTO = (List<friendDTO> ) friendSer.findfriendById(username);
+        if(listDTO.size() != 0){
+            return new ResponseEntity<Object>(listDTO, HttpStatus.OK);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Friend not found");
     }
 
     @PostMapping("")

@@ -3,6 +3,7 @@ package api.controller;
 import java.util.List;
 
 import api.DTO.MessageResponse;
+import api.DTO.messagesDTO;
 import api.DTO.userDTO;
 import api.entity.channel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,11 @@ public class channelController {
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
 		}
-		return new ResponseEntity<Object>(channelS.findByAuthor_id(username),HttpStatus.OK);
+		List<channelDTO> list = (List<channelDTO>)channelS.findByAuthor_id(username);
+		if(list.size() != 0){
+			return new ResponseEntity<Object>(list,HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("channel not found");
 	}
 
 	@GetMapping("/find/{friendid}")
@@ -46,13 +51,15 @@ public class channelController {
 			username = ((UserDetails)principal).getUsername();
 		}
 		friendid = friendid+".com";
-		return new ResponseEntity<Object>(channelS.findchannelbyfriendId(username,friendid),HttpStatus.OK);
+
+		channelDTO channel = (api.DTO.channelDTO) channelS.findchannelbyfriendId(username,friendid);
+		if(channel.getId() != 0){
+			return new ResponseEntity<Object>(channel,HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("channel not found");
 	}
 
-//	@DeleteMapping("/{id}")
-//	public ResponseEntity<Object> delete(@PathVariable long id){
-//		return new ResponseEntity<Object>(channelS.delete(id),HttpStatus.OK);	
-//	}
+
 	
 	@PutMapping("")
 	public ResponseEntity<Object> update(@RequestBody channelDTO cDTO){

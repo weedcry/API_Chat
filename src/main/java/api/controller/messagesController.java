@@ -34,12 +34,20 @@ public class messagesController {
 
 	@GetMapping("/{channel_id}")
 	public ResponseEntity<Object> findByChannel(@PathVariable long channel_id){
-		return new ResponseEntity<Object>(messagesS.findByChannel(channel_id),HttpStatus.OK);
+		List<messagesDTO> list = (List<messagesDTO>)messagesS.findByChannel(channel_id);
+		if(list.size() != 0){
+			return new ResponseEntity<Object>(list,HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("messages not found");
 	}
 
 	@GetMapping("/last/{channel_id}")
 	public ResponseEntity<Object> findMessageByChannel(@PathVariable long channel_id){
-		return new ResponseEntity<Object>(messagesS.findMessageByChannel(channel_id),HttpStatus.OK);
+		List<messagesDTO> list = (List<messagesDTO>)messagesS.findMessageByChannel(channel_id);
+		if(list.size() != 0){
+			return new ResponseEntity<Object>(list,HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("messages not found");
 	}
 
 	@GetMapping("/last")
@@ -50,18 +58,29 @@ public class messagesController {
 			username = ((UserDetails)principal).getUsername();
 
 		}
-		return new ResponseEntity<Object>(messagesS.findLastMessageChannel(username),HttpStatus.OK);
+		List<messagesDTO> list = (List<messagesDTO>)messagesS.findLastMessageChannel(username);
+		if(list.size() != 0){
+			return new ResponseEntity<Object>(list,HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("messages not found");
 	}
 	
 	@PutMapping("")
 	public ResponseEntity<Object> update(@RequestBody messagesDTO mDTO){
-		return new ResponseEntity<Object>(messagesS.update(mDTO),HttpStatus.OK);
+		messagesDTO messagesDTO = (api.DTO.messagesDTO)messagesS.update(mDTO);
+		if(messagesDTO != null){
+			return new ResponseEntity<Object>(messagesDTO,HttpStatus.CREATED);
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
 	}
 	
 	@PostMapping("")
 	public ResponseEntity<Object> create(@RequestBody messagesDTO mDTO){
-
-		return new ResponseEntity<Object>(messagesS.create(mDTO),HttpStatus.CREATED);
+		messagesDTO messagesDTO = (api.DTO.messagesDTO)messagesS.create(mDTO);
+		if(messagesDTO != null){
+			return new ResponseEntity<Object>(messagesDTO,HttpStatus.CREATED);
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
 	}
 
 	@PostMapping("/uploadFile")

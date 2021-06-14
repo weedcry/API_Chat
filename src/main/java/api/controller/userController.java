@@ -46,7 +46,11 @@ public class userController {
 	@GetMapping("/find/{id}")
 	public ResponseEntity<Object> finduser(@PathVariable String id){
 		id = id+".com";
-		return new ResponseEntity<Object>(userS.findById(id),HttpStatus.OK);
+		userDTO user = (userDTO)userS.findById(id);
+		if(user.getId() != null){
+			return new ResponseEntity<Object>(user,HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
 	}
 	
 	@DeleteMapping("")
@@ -56,7 +60,6 @@ public class userController {
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
 		}
-
 		return new ResponseEntity<Object>(userS.delete(username),HttpStatus.OK);
 	}
 	

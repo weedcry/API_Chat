@@ -17,12 +17,6 @@ public class settingService {
 	public Object findById(String id) {		
 		ServiceResult result = new ServiceResult();
 		setting s = settingRes.findById(id);
-		if(s == null) {
-			System.out.println("fail");
-			result.setMessage("setting not found");
-			MessageResponse mes = new MessageResponse("setting not found");
-			return mes;
-		}
 		result.setData(s);
 		return result.getData();
 	}

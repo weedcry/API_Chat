@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import api.repository.friendRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import api.DTO.userDTO;
@@ -38,7 +39,8 @@ public class friendService {
 
         if(list == null){
             result.setMessage("userfriend not found");
-            return  result.getMessage();
+            List<friendDTO> listDTO = new ArrayList<>();
+            return  listDTO;
         }
         return friendConvert.listfriendDTO(list);
     }

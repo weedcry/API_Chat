@@ -29,9 +29,12 @@ public class settingController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
-
 		}
-		return new ResponseEntity<Object>(settingS.findById(username),HttpStatus.OK);
+		setting setting = (setting)settingS.findById(username);
+		if(setting != null){
+			return new ResponseEntity<Object>(setting,HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Setting not found");
 	}	
 	
 	@DeleteMapping("/{id}")

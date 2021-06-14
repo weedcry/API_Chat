@@ -1,6 +1,7 @@
 package api.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import api.Convert.userConvert;
@@ -39,10 +40,11 @@ public class channelService {
 	// hiển thị tất cả channel user tham gia
 	public Object findByAuthor_id(String author_id) {
 		ServiceResult result = new ServiceResult();
-		List<channel> listc = channelRes.findByauthorid(author_id);
-		if(listc.isEmpty()) {
+		List<channel> listc = channelRes.findchannelByauthorid(author_id);
+		if(listc == null) {
 			result.setMessage("channel not found");
-			return  result.getMessage();
+			List<channelDTO> listDTO = new ArrayList<>();
+			return listDTO;
 		}
 		return channelC.listchannelDTO(listc);
 	}
@@ -88,13 +90,13 @@ public class channelService {
 			namegr+=","+words[words.length-1];
 		}
 		for(userDTO udto : listfriendid ){
-			channelDTO c1DTO = new channelDTO(chanDTO.getId(),udto.getId(),namegr,"null",photogr,1,1);
+			channelDTO c1DTO = new channelDTO(chanDTO.getId(),udto.getId(),namegr,"null",photogr,2,1);
 			try {
 				channelRes.save(channelC.tochannel(c1DTO));
 			}catch (Exception e){
 			}
 		}
-		channelDTO cDTO = new channelDTO(chanDTO.getId(),userid,namegr,"null",photogr,1,1);
+		channelDTO cDTO = new channelDTO(chanDTO.getId(),userid,namegr,"null",photogr,2,1);
 		ServiceResult result = new ServiceResult();
 		try {
 			result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
@@ -133,25 +135,15 @@ public class channelService {
 
 	public Object findchannelbyfriendId(String username,String friendid){
 		ServiceResult result = new ServiceResult();
-		List<channel> list = channelRes.findchannelbyfriend(username,friendid);
-		System.out.println("size "+list.size());
-        if(list == null){
-            MessageResponse mes = new MessageResponse("not found");
-            return mes;
-        }
-//        if(list.size() == 1){
-//            return channelC.tochannelDTO(list.get(0));
-//        }
+		channel ch = channelRes.findchannelbyfriend(username,friendid);
 
-        // nhiều channel
-        for(channel c : list){
-            String[] words = c.getTopic().split(",");
-            if(words.length == 1){
-                return channelC.tochannelDTO(c);
-            }
+        if(ch == null){
+            MessageResponse mes = new MessageResponse("not found");
+            channelDTO channelDTO = new channelDTO();
+            return channelDTO;
         }
-        MessageResponse mes = new MessageResponse("not found");
-        return mes;
+
+        return channelC.tochannelDTO(ch);
 	}
 
 }

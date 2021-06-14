@@ -1,5 +1,6 @@
 package api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import api.DTO.MessageResponse;
@@ -27,7 +28,8 @@ public class messagesService {
 		List<messages> list = messagesRes.findByChannel_General(channel_id);
 		if(list == null){
 			result.setMessage("messages not found");
-			return  result.getMessage();
+			List<messagesDTO> listDTO = new ArrayList<>();
+			return listDTO  ;
 		}
 		return messagesConv.listmessagesDTO(list);
 	}
@@ -37,7 +39,8 @@ public class messagesService {
 		messages messages = messagesRes.findMessageByChannel_General(channel_id);
 		if(messages == null){
 			result.setMessage("messages not found");
-			return  result.getMessage();
+			List<messagesDTO> listDTO = new ArrayList<>();
+			return listDTO  ;
 		}
 		return messagesConv.tomessagesDTO(messages);
 	}
@@ -47,7 +50,8 @@ public class messagesService {
 		List<messages> list = messagesRes.findLastMessageByUserid(userid);
 		if(list == null){
 			result.setMessage("messages not found");
-			return  result.getMessage();
+			List<messagesDTO> listDTO = new ArrayList<>();
+			return listDTO  ;
 		}
 		return messagesConv.listmessagesDTO(list);
 	}
@@ -55,7 +59,11 @@ public class messagesService {
 
 	public Object create(messagesDTO mDTO) {
 		ServiceResult result = new ServiceResult();
-		result.setData(messagesConv.tomessagesDTO(messagesRes.save(messagesConv.tomessages(mDTO))));
+		try {
+			result.setData(messagesConv.tomessagesDTO(messagesRes.save(messagesConv.tomessages(mDTO))));
+		}catch (Exception e){
+
+		}
 		return result.getData();
 	}
 
@@ -79,7 +87,12 @@ public class messagesService {
 			MessageResponse mes = new MessageResponse("messages not found");
 			return mes;
 		}
-		messagesRes.save(messagesConv.tomessages(mDTO));
+		try{
+			messagesRes.save(messagesConv.tomessages(mDTO));
+		}catch (Exception e){
+			messagesDTO m = new messagesDTO();
+			return m;
+		}
 		return mDTO;
 	}
 }

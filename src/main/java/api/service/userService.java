@@ -2,10 +2,11 @@ package api.service;
 
 import api.DTO.MessageResponse;
 import api.DTO.userDTO;
-import api.controller.settingController;
 import api.entity.setting;
 import api.repository.settingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,8 +45,10 @@ public class userService implements UserDetailsService {
 		if(u == null) {
 			result.setMessage("user not found");
 			MessageResponse mes = new MessageResponse("user not found");
-			return mes;
+//			return mes;
+			return new userDTO();
 		}
+
 
 		result.setData(uconvert.touserDTO(u));
 		return result.getData();
@@ -103,7 +106,10 @@ public class userService implements UserDetailsService {
 
 	public Object update(userDTO u) {
 		ServiceResult result = new ServiceResult();
-		result.setData(userRes.save(uconvert.touser(u)));
+		try {
+			result.setData(userRes.save(uconvert.touser(u)));
+		}catch (Exception e){}
+
 		return result.getData();
 	}
 
