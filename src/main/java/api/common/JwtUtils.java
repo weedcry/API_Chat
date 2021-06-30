@@ -36,7 +36,7 @@ public class JwtUtils implements AuthenticationEntryPoint {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         // hạn dùng
-        String dateInString = "30/06/2021";
+        String dateInString = "30/08/2021";
         
         Date date = formatter.parse(dateInString);
 
