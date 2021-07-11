@@ -93,4 +93,13 @@ public class messagesController {
 		return this.amazonClient.deleteFileFromS3Bucket(fileUrl);
 	}
 
+	@PostMapping("/updatestatus/{channelid}")
+	public ResponseEntity<String>updatestatusmessages(@PathVariable long channelid) {
+		if(messagesS.updateStatusMessages(channelid) == 1){
+			return ResponseEntity.status(HttpStatus.OK).body("success");
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
+	}
+
+
 }

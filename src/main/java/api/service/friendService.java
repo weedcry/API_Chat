@@ -61,6 +61,22 @@ public class friendService {
         return result.getData();
     }
 
+    public Object inviteFriendsocket(String username,user friend){
+        ServiceResult result = new ServiceResult();
+        user u =  userConvert.touser((userDTO) userService.findById(username));
+        friendDTO fr = new friendDTO(username,friend,0,friend.getActive());
+        friendDTO fr1 = new friendDTO(friend.getId(),u,2,u.getActive());
+        try {
+            friendConvert.tofriendDTO(friendRes.save(friendConvert.tofriend(fr)));
+            result.setData(friendRes.save(friendConvert.tofriend(fr1)));
+        }catch (Exception e){
+
+        }
+        return result.getData();
+    }
+
+
+
     public Object acceptFriend(String username,friendDTO fr1){
         ServiceResult result = new ServiceResult();
         user u =  userConvert.touser((userDTO) userService.findById(username));
@@ -76,6 +92,21 @@ public class friendService {
         return mes;
     }
 
+    public Object acceptFriendSocket(String username,friendDTO fr1){
+        ServiceResult result = new ServiceResult();
+        user u =  userConvert.touser((userDTO) userService.findById(username));
+        friendDTO fr = new friendDTO(fr1.getFriend().getId(),u,1,u.getActive());
+        fr1.setFriend_active(1);
+        try {
+           result.setData(friendRes.save(friendConvert.tofriend(fr)));
+            friendRes.save(friendConvert.tofriend(fr1));
+        }catch (Exception e){
+
+        }
+        return result.getData();
+    }
+
+
     public Object deletefriend(friendDTO fri){
         ServiceResult result = new ServiceResult();
         user u =  userConvert.touser((userDTO) userService.findById(fri.getId()));
@@ -84,6 +115,15 @@ public class friendService {
         friendRes.delete(friendConvert.tofriend(fr));
         MessageResponse mes = new MessageResponse("success");
         return mes;
+    }
+
+    public Object deletefriendSocket(friendDTO fri){
+        ServiceResult result = new ServiceResult();
+        user u =  userConvert.touser((userDTO) userService.findById(fri.getId()));
+        friendDTO fr = new friendDTO(fri.getFriend().getId(),u,1,u.getActive());
+        friendRes.delete(friendConvert.tofriend(fri));
+        friendRes.delete(friendConvert.tofriend(fr));
+        return fri.getFriend().getId();
     }
 
 

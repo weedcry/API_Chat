@@ -3,6 +3,10 @@ package api.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import api.DTO.friendDTO;
+import api.entity.friend;
+import api.entity.user;
+import api.service.friendService;
 import api.service.messagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -32,6 +36,9 @@ public class WebSocketController {
     @Autowired
     messagesService messagesService;
 
+    @Autowired
+    friendService friendSer;
+
     @MessageMapping("/chat.sendMessage/{channelId}/{userId}")
     public void sendMessage(@Payload messagesDTO message,@DestinationVariable long channelId,@DestinationVariable String userId) {
         //them message vao db
@@ -43,7 +50,7 @@ public class WebSocketController {
         listUser = userService.listuserbychannelid(channelId);
         System.out.println("Size" +listUser.size());
         for(int i=0;i<listUser.size();i++) {
-//            if(listUser.get(i).getId().equals(userId)) continue;
+//           if(listUser.get(i).getId().equals(userId)) continue;
             System.out.println("/message_receive/"+listUser.get(i).getId());
             String[] fn = listUser.get(i).getId().split("\\.");
             String username = fn[0];
@@ -54,4 +61,35 @@ public class WebSocketController {
 
 
     }
+
+    @MessageMapping("/chat.sendInvitefriend/{userId}")
+    public void Invitefriendreceive(@Payload user friend,@DestinationVariable String userId){
+      friend fri = (friend) friendSer.inviteFriendsocket(userId,friend);
+      simpMessagingTemplate.convertAndSend("/friend_receive/"+friend.getId(),fri);
+    }
+
+    @MessageMapping("/chat.sendAcceptfriend/{userId}")
+    public void Acceptfriendreceive(@Payload friendDTO Friend, @DestinationVariable String userId){
+        friend fri = (friend) friendSer.acceptFriendSocket(userId,Friend);
+        simpMessagingTemplate.convertAndSend("/friend_accept/"+Friend.getFriend().getId(),fri);
+    }
+
+    @MessageMapping("/chat.sendUnfriend/{userId}")
+    public void Unfriendreceive(@Payload friendDTO Friend, @DestinationVariable String userId){
+        String username = (String) friendSer.deletefriendSocket(Friend);
+        simpMessagingTemplate.convertAndSend("/friend_un/"+username,userId);
+    }
+
+    @MessageMapping("/chat.sendupdatestatusmess/{userId}/{channel_id}")
+    public void Unfriendreceive(@Payload friendDTO Friend, @DestinationVariable String userId,@DestinationVariable long channel_id){
+        messagesService.updateStatusMessages(channel_id);
+        listUser = userService.listuserbychannelid(channel_id);
+        for(userDTO u : listUser){
+            if(!u.getId().equals(userId)){
+                simpMessagingTemplate.convertAndSend("/updatestatusmess/"+u.getId(),channel_id);
+                break;
+            }
+        }
+    }
+
 }

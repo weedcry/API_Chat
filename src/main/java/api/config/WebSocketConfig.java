@@ -35,6 +35,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws").withSockJS().setInterceptors(handshakeInterceptor);
         //for android
         registry.addEndpoint("/ws");
+
+
+
+
     }
 
 
@@ -43,6 +47,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         // TODO Auto-generated method stub
         registry.setApplicationDestinationPrefixes("/message_send");
         registry.enableSimpleBroker("/message_receive");
+        registry.enableSimpleBroker("/friend_receive");
+        registry.enableSimpleBroker("/friend_accept");
+        registry.enableSimpleBroker("/friend_un");
+        registry.enableSimpleBroker("/updatestatusmess");
     }
 
 

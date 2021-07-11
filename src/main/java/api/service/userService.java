@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,9 @@ import java.util.List;
 public class userService implements UserDetailsService {
 	@Autowired
 	userRepository userRes;
+
+	@Autowired
+	PasswordEncoder encoder;
 
 	@Autowired
 	settingRepository settingRes;
@@ -48,8 +52,6 @@ public class userService implements UserDetailsService {
 //			return mes;
 			return new userDTO();
 		}
-
-
 		result.setData(uconvert.touserDTO(u));
 		return result.getData();
 	}
@@ -107,7 +109,7 @@ public class userService implements UserDetailsService {
 	public Object update(userDTO u) {
 		ServiceResult result = new ServiceResult();
 		try {
-			result.setData(userRes.save(uconvert.touser(u)));
+			result.setData(uconvert.touserDTO(userRes.save(uconvert.touser(u))));
 		}catch (Exception e){}
 
 		return result.getData();
@@ -135,5 +137,31 @@ public class userService implements UserDetailsService {
 		return 	uconvert.tolistDTO(list);
 	}
 
+	public int checkpassword(String username,String pass){
+		boolean result = false;
+		try {
+			userDTO u = (userDTO) findById(username);
+			result = encoder.matches(pass,u.getPassword());
+		}catch (Exception e){
+
+		}
+
+		if(result){
+			return 1;
+		}
+		return 0;
+	}
+
+	public Object changepassword(String username,String newpass){
+		try {
+			userDTO u = (userDTO) findById(username);
+			u.setPassword(encoder.encode(newpass));
+			userRes.save(uconvert.touser(u));
+		}catch (Exception e){
+
+		}
+		MessageResponse mes = new MessageResponse("success");
+		return mes;
+	}
 
 }

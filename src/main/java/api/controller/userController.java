@@ -1,6 +1,7 @@
 package api.controller;
 
 
+import api.DTO.ChangePassword;
 import api.DTO.FileResponse;
 import api.DTO.MessageResponse;
 import api.DTO.userDTO;
@@ -97,6 +98,22 @@ public class userController {
 	@GetMapping("channel/{id}")
 	public ResponseEntity<Object>userfromChannel(@PathVariable long id) {
 		return new ResponseEntity<Object>(userS.listuserbychannelid(id),HttpStatus.OK);
+	}
+
+
+	@PostMapping("/password")
+	public ResponseEntity<Object> ChangePassword(@RequestBody ChangePassword changePassword){
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
+
+		int check = userS.checkpassword(username,changePassword.getOldpassword());
+		if(check == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("password incorrect");
+		}
+		return new ResponseEntity<Object>(userS.changepassword(username,changePassword.getNewpassword()),HttpStatus.OK);
 	}
 
 }

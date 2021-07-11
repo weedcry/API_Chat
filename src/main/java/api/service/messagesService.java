@@ -95,4 +95,31 @@ public class messagesService {
 		}
 		return mDTO;
 	}
+
+	public int updateStatusMessages(long channelid){
+//		try{
+//			System.out.println("vào");
+//			messagesRes.updateStatusMessages(channelid);
+//			return  1;
+//		}catch (Exception e){
+//			System.out.println("lỗi "+e);
+//			return 0;
+//		}
+
+		try {
+			List<messages> list = messagesRes.findByChannel_General(channelid);
+			for(messages m : list){
+				if(Integer.parseInt(m.getStatus()) == 2){
+					m.setStatus("1");
+					messagesRes.save(m);
+				}
+			}
+			return 1;
+		}catch (Exception e){
+			System.out.println("lỗi "+e);
+			return 0;
+		}
+
+	}
+
 }
