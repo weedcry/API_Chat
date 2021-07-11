@@ -85,7 +85,7 @@ public class WebSocketController {
     }
 
     @MessageMapping("/chat.sendupdatestatusmess/{userId}/{channel_id}")
-    public void Unfriendreceive( @DestinationVariable String userId,@DestinationVariable long channel_id){
+    public void updatestatusmessreceive( @DestinationVariable String userId,@DestinationVariable long channel_id){
         messagesService.updateStatusMessages(channel_id);
         listUser = userService.listuserbychannelid(channel_id);
         for(userDTO u : listUser){
