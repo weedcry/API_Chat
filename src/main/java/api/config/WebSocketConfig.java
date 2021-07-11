@@ -51,6 +51,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.enableSimpleBroker("/friend_accept");
         registry.enableSimpleBroker("/friend_un");
         registry.enableSimpleBroker("/updatestatusmess");
+        registry.enableSimpleBroker("/deletachannel");
     }
 
 

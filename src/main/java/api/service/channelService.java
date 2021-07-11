@@ -116,12 +116,17 @@ public class channelService {
 			return result.getMessage();
 		}
 		List<channel> list = channelRes.findByid(cDTO.getId());
-		if(list.size() == 2){
+		// xóa channel từ 1 phía người dùng gửi lên dành cho nhóm
+		if(cDTO.getExits() == 0){
 			try {
-				channelRes.save(channelC.tochannel(cDTO));
-				result.setData(cDTO);
+				for(channel ch : list){
+					if(ch.getChanneluser().getAuthor_id().equals(cDTO.getAuthor_id())){
+						channelRes.save(ch);
+						break;
+					}
+				}
 			}catch (Exception e){}
-			return result.getData();
+			return cDTO;
 		}
 		try {
 			for(channel ch : list){
@@ -132,6 +137,32 @@ public class channelService {
 		}catch (Exception e){}
 		return result.getData();
 	}
+
+	// xóa channel cho 2 user
+	public Object deletechannelfor2user(channelDTO cDTO) {
+		ServiceResult result = new ServiceResult();
+		channel channeln = channelRes.findOneByAuthorid(cDTO.getId(), cDTO.getAuthor_id());
+		if (channeln == null) {
+
+		}
+		List<channel> list = channelRes.findByid(cDTO.getId());
+		if (list.size() == 2 && cDTO.getExits() == 0) {
+			channelDTO chan = new channelDTO();
+			try {
+				for (channel ch : list) {
+					if(! ch.getChanneluser().getAuthor_id().equals(cDTO.getAuthor_id())){
+						chan = channelC.tochannelDTO(ch);
+					}
+					ch.setExits(0);
+					channelRes.save(ch);
+				}
+			} catch (Exception e) {
+			}
+			return chan;
+		}
+		return cDTO;
+	}
+
 
 	public Object findchannelbyfriendId(String username,String friendid){
 		ServiceResult result = new ServiceResult();

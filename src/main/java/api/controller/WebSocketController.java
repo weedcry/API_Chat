@@ -3,6 +3,7 @@ package api.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import api.DTO.channelDTO;
 import api.DTO.friendDTO;
 import api.entity.friend;
 import api.entity.user;
@@ -35,6 +36,9 @@ public class WebSocketController {
 
     @Autowired
     messagesService messagesService;
+
+    @Autowired
+    channelService channelS;
 
     @Autowired
     friendService friendSer;
@@ -81,7 +85,7 @@ public class WebSocketController {
     }
 
     @MessageMapping("/chat.sendupdatestatusmess/{userId}/{channel_id}")
-    public void Unfriendreceive(@Payload friendDTO Friend, @DestinationVariable String userId,@DestinationVariable long channel_id){
+    public void Unfriendreceive( @DestinationVariable String userId,@DestinationVariable long channel_id){
         messagesService.updateStatusMessages(channel_id);
         listUser = userService.listuserbychannelid(channel_id);
         for(userDTO u : listUser){
@@ -90,6 +94,19 @@ public class WebSocketController {
                 break;
             }
         }
+    }
+
+    @MessageMapping("/chat.deletachannel/{userId}/{channel_id}")
+    public void DeleteChannel(@Payload channelDTO channelDTO, @DestinationVariable String userId, @DestinationVariable long channel_id){
+        channelDTO cdto = (channelDTO) channelS.deletechannelfor2user(channelDTO);
+        listUser = userService.listuserbychannelid(channel_id);
+        for(userDTO u : listUser){
+            if(!u.getId().equals(userId)){
+                simpMessagingTemplate.convertAndSend("/deletachannel/"+u.getId(),cdto);
+                break;
+            }
+        }
+
     }
 
 }
