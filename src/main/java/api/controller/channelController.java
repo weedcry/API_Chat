@@ -1,5 +1,6 @@
 package api.controller;
 
+import java.nio.channels.Channel;
 import java.util.List;
 
 import api.DTO.MessageResponse;
@@ -73,7 +74,11 @@ public class channelController {
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails)principal).getUsername();
 		}
-		return new ResponseEntity<Object>(channelS.create(username,friendid),HttpStatus.CREATED);
+		channelDTO cDTO = (channelDTO )channelS.create(username,friendid);
+		if(cDTO != null){
+			return ResponseEntity.status(HttpStatus.CREATED).body(cDTO);
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
 	}
 
     @PostMapping("/create/group")

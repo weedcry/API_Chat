@@ -85,7 +85,8 @@ public class messagesService {
 		messages messagesn = messagesRes.findById(mDTO.getId(),mDTO.getChannel_id());
 		if(messagesn == null) {
 			MessageResponse mes = new MessageResponse("messages not found");
-			return mes;
+			messagesDTO m = new messagesDTO();
+			return m;
 		}
 		try{
 			messagesRes.save(messagesConv.tomessages(mDTO));

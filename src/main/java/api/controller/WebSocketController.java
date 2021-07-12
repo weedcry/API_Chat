@@ -11,6 +11,8 @@ import api.service.friendService;
 import api.service.messagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -96,17 +98,51 @@ public class WebSocketController {
         }
     }
 
-    @MessageMapping("/chat.deletechannel/{userId}/{channel_id}")
-    public void DeleteChannel(@Payload channelDTO channelDTO, @DestinationVariable String userId, @DestinationVariable long channel_id){
+    @MessageMapping("/chat.deletemessages/{userId}")
+    public void Deletemessages(@Payload messagesDTO mDTO, @DestinationVariable String userId){
+        messagesDTO messagesDTO = (api.DTO.messagesDTO)messagesService.update(mDTO);
+            listUser = userService.listuserbychannelid(mDTO.getChannel_id());
+            for(userDTO u : listUser){
+                if(!u.getId().equals(userId)){
+                    simpMessagingTemplate.convertAndSend("/deletemessages/"+u.getId(),mDTO);
+                    break;
+                }
+            }
+    }
+
+
+    @MessageMapping("/chat.deletechannel/{userid}/{channel_id}")
+    public void DeleteChannel(@Payload channelDTO channelDTO, @DestinationVariable String userid, @DestinationVariable long channel_id){
         channelDTO cdto = (channelDTO) channelS.deletechannelfor2user(channelDTO);
         listUser = userService.listuserbychannelid(channel_id);
         for(userDTO u : listUser){
-            if(!u.getId().equals(userId)){
-                simpMessagingTemplate.convertAndSend("/deletechannel/"+u.getId(),cdto);
+            if(!u.getId().equals(userid)){
+                simpMessagingTemplate.convertAndSend("/deletachannel/"+u.getId(),cdto);
                 break;
             }
         }
 
     }
+
+    @MessageMapping("/chat.createchannel/{userid}/{friendid}")
+    public void CreateChannel(@DestinationVariable String userid, @DestinationVariable String friendid){
+        channelDTO cDTO = (channelDTO )channelS.create(userid,friendid);
+            listUser = userService.listuserbychannelid(cDTO.getId());
+            for(userDTO u : listUser){
+                if(!u.getId().equals(userid)){
+                    simpMessagingTemplate.convertAndSend("/receivechannel/"+u.getId(),cDTO);
+                    break;
+                }
+            }
+    }
+
+    @MessageMapping("/chat.creategroup/{userid}")
+    public void CreateGroup(@Payload List<userDTO> list,@DestinationVariable String userid){
+        List<channelDTO> listchanDTO = channelS.creategroupsocket(userid,list);
+        for (channelDTO chan : listchanDTO){
+            simpMessagingTemplate.convertAndSend("/receivegroup/"+chan.getAuthor_id(),chan);
+        }
+    }
+
 
 }

@@ -1,11 +1,9 @@
 package api.controller;
 
 
-import api.DTO.ChangePassword;
-import api.DTO.FileResponse;
-import api.DTO.MessageResponse;
-import api.DTO.userDTO;
+import api.DTO.*;
 import api.config.AmazonClient;
+import com.amazonaws.services.simpleemail.model.ListVerifiedEmailAddressesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

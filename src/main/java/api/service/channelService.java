@@ -74,11 +74,13 @@ public class channelService {
 			channelRes.save(channelC.tochannel(c1DTO));
 			result.setData(channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO))));
 		}catch (Exception e){
-
+			channelDTO cDTOe = null;
+			return cDTOe; 
 		}
 		return result.getData();
 	}
 
+	// tạo nhóm
 	public Object creategroup(String userid,List<userDTO> listfriendid) {
 		userDTO uid = (userDTO)userSer.findById(userid);
 		String[] worduserid = uid.getName().split("\\s");
@@ -104,6 +106,37 @@ public class channelService {
 
 		}
 		return result.getData();
+	}
+
+	//tạo nhóm sử dụng socket
+	public List<channelDTO> creategroupsocket(String userid,List<userDTO> listfriendid) {
+		List<channelDTO> listchan = new ArrayList<channelDTO>();
+		userDTO uid = (userDTO)userSer.findById(userid);
+		String[] worduserid = uid.getName().split("\\s");
+		String photogr = "https://s3.us-east-2.amazonaws.com/myawsbucketappfile/1622610729701-img_group.jpg";
+		channel_generalDTO chanDTO = (channel_generalDTO )channel_generalSer.create();
+		String namegr = worduserid[worduserid.length-1];
+		for(userDTO udto : listfriendid ){
+			String[] words = udto.getName().split("\\s");
+			namegr+=","+words[words.length-1];
+		}
+		for(userDTO udto : listfriendid ){
+			channelDTO c1DTO = new channelDTO(chanDTO.getId(),udto.getId(),namegr,"null",photogr,2,1);
+			try {
+				channelRes.save(channelC.tochannel(c1DTO));
+				listchan.add(c1DTO);
+			}catch (Exception e){
+			}
+		}
+		channelDTO cDTO = new channelDTO(chanDTO.getId(),userid,namegr,"null",photogr,2,1);
+		ServiceResult result = new ServiceResult();
+		try {
+			channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO)));
+			listchan.add(cDTO);
+		}catch (Exception e){
+
+		}
+		return listchan;
 	}
 
 
