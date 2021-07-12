@@ -47,14 +47,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         // TODO Auto-generated method stub
         registry.setApplicationDestinationPrefixes("/message_send");
         registry.enableSimpleBroker("/message_receive");
-        registry.enableSimpleBroker("/friend_receive");
-        registry.enableSimpleBroker("/friend_accept");
-        registry.enableSimpleBroker("/friend_un");
-        registry.enableSimpleBroker("/updatestatusmess");
-        registry.enableSimpleBroker("/deletechannel");
-        registry.enableSimpleBroker("/deletemessages");
-        registry.enableSimpleBroker("/receivegroup");
-        registry.enableSimpleBroker("/receivechannel");
+//         registry.enableSimpleBroker("/friend_receive");
+//         registry.enableSimpleBroker("/friend_accept");
+//         registry.enableSimpleBroker("/friend_un");
+//         registry.enableSimpleBroker("/updatestatusmess");
+//         registry.enableSimpleBroker("/deletechannel");
+//         registry.enableSimpleBroker("/deletemessages");
+//         registry.enableSimpleBroker("/receivegroup");
+//         registry.enableSimpleBroker("/receivechannel");
     }
 
 
