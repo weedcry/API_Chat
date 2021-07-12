@@ -102,7 +102,7 @@ public class WebSocketController {
         listUser = userService.listuserbychannelid(channel_id);
         for(userDTO u : listUser){
             if(!u.getId().equals(userId)){
-                simpMessagingTemplate.convertAndSend("/deletachannel/"+u.getId(),cdto);
+                simpMessagingTemplate.convertAndSend("/deletechannel/"+u.getId(),cdto);
                 break;
             }
         }
