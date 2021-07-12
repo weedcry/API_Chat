@@ -32,7 +32,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // TODO Auto-generated method stub
         //for front-end
-        registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS().setInterceptors(handshakeInterceptor);
+        registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS();
         //for android
         registry.addEndpoint("/ws");
 
