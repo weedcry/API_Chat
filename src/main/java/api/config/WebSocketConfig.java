@@ -32,6 +32,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // TODO Auto-generated method stub
         //for front-end
+        //.setInterceptors(handshakeInterceptor)
         registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS();
         //for android
         registry.addEndpoint("/ws");
@@ -44,17 +45,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
+
         // TODO Auto-generated method stub
         registry.setApplicationDestinationPrefixes("/message_send");
-        registry.enableSimpleBroker("/message_receive");
-//         registry.enableSimpleBroker("/friend_receive");
-//         registry.enableSimpleBroker("/friend_accept");
-//         registry.enableSimpleBroker("/friend_un");
-//         registry.enableSimpleBroker("/updatestatusmess");
-//         registry.enableSimpleBroker("/deletechannel");
-//         registry.enableSimpleBroker("/deletemessages");
-//         registry.enableSimpleBroker("/receivegroup");
-//         registry.enableSimpleBroker("/receivechannel");
+        registry.enableSimpleBroker("/message_receive","/receiveupdatestatusmess",
+                "/receivedeletechannel","receivedeletemessages","/receivegroup","/receivechannel");
     }
 
 
