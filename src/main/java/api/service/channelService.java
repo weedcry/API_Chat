@@ -140,8 +140,22 @@ public class channelService {
 	}
 
 
+	public Object update(channelDTO cDTO) {
+		ServiceResult result = new ServiceResult();
+		channel channeln = channelRes.findOneByAuthorid(cDTO.getId(),cDTO.getAuthor_id());
+		if(channeln == null) {
+			result.setMessage("channel not found");
+			return result.getMessage();
+		}
+		try {
+			channelRes.save(channelC.tochannel(cDTO));
+		}catch (Exception e){}
+		return cDTO;
+	}
+
+
 	
-	public Object update(channelDTO cDTO) {	
+	public Object deletechannel(channelDTO cDTO) {
 		ServiceResult result = new ServiceResult();
 		channel channeln = channelRes.findOneByAuthorid(cDTO.getId(),cDTO.getAuthor_id());
 		if(channeln == null) {
