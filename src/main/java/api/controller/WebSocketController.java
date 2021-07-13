@@ -77,13 +77,13 @@ public class WebSocketController {
     @MessageMapping("/chat.sendAcceptfriend/{userId}")
     public void Acceptfriendreceive(@Payload friendDTO Friend, @DestinationVariable String userId){
         friend fri = (friend) friendSer.acceptFriendSocket(userId,Friend);
-        simpMessagingTemplate.convertAndSend("/friend_accept/"+Friend.getFriend().getId(),fri);
+        simpMessagingTemplate.convertAndSend("/receivefriendaccept/"+Friend.getFriend().getId(),fri);
     }
 
     @MessageMapping("/chat.sendUnfriend/{userId}")
     public void Unfriendreceive(@Payload friendDTO Friend, @DestinationVariable String userId){
         String username = (String) friendSer.deletefriendSocket(Friend);
-        simpMessagingTemplate.convertAndSend("/friend_un/"+username,userId);
+        simpMessagingTemplate.convertAndSend("/receivedeletefriend/"+username,userId);
     }
 
     @MessageMapping("/chat.sendupdatestatusmess/{userId}/{channel_id}")
