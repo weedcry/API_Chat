@@ -92,7 +92,7 @@ public class WebSocketController {
         listUser = userService.listuserbychannelid(channel_id);
         for(userDTO u : listUser){
             if(!u.getId().equals(userId)){
-                simpMessagingTemplate.convertAndSend("/updatestatusmess/"+u.getId(),channel_id);
+                simpMessagingTemplate.convertAndSend("/receiveupdatestatusmess/"+u.getId(),channel_id);
                 break;
             }
         }
@@ -104,7 +104,7 @@ public class WebSocketController {
             listUser = userService.listuserbychannelid(mDTO.getChannel_id());
             for(userDTO u : listUser){
                 if(!u.getId().equals(userId)){
-                    simpMessagingTemplate.convertAndSend("/deletemessages/"+u.getId(),mDTO);
+                    simpMessagingTemplate.convertAndSend("/receivedeletemessages/"+u.getId(),mDTO);
                     break;
                 }
             }
@@ -117,7 +117,7 @@ public class WebSocketController {
         listUser = userService.listuserbychannelid(channel_id);
         for(userDTO u : listUser){
             if(!u.getId().equals(userid)){
-                simpMessagingTemplate.convertAndSend("/deletachannel/"+u.getId(),cdto);
+                simpMessagingTemplate.convertAndSend("/receivedeletechannel/"+u.getId(),cdto);
                 break;
             }
         }
