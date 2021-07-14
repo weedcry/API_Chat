@@ -124,7 +124,7 @@ public class WebSocketController {
 
     @MessageMapping("/chat.deletechannel/{userid}")
     public void DeleteChannel(@Payload channelDTO chanDTO, @DestinationVariable String userid){
-        listUser = userService.listuserbychannelid(cDTO.getId());
+        listUser = userService.listuserbychannelid(chanDTO.getId());
         channelDTO cDTO = (channelDTO) channelS.deletechannelfor2user(chanDTO);
         for(userDTO u : listUser){
             if(!u.getId().equals(userid)){
