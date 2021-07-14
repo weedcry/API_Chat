@@ -48,7 +48,7 @@ public class WebSocketController {
     @MessageMapping("/chat.sendMessage/{channelId}/{userId}")
     public void sendMessage(@Payload messagesDTO message,@DestinationVariable long channelId,@DestinationVariable String userId) {
         //them message vao db
-       messagesDTO mDTO = messagesService.create(message);
+       messagesDTO mDTO = (messagesDTO)messagesService.create(message);
 
         System.out.println("Receive Message: "+ message.getContent());
         //tu channel_id gui tu client se tim dc cac user thuoc channel_id do
