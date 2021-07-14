@@ -111,13 +111,6 @@ public class WebSocketController {
                 }
             }
         
-        listUser = userService.listuserbychannelid(channelId);
-        System.out.println("Size" +listUser.size());
-        for(int i=0;i<listUser.size();i++) {
-//           if(listUser.get(i).getId().equals(userId)) continue;
-
-            simpMessagingTemplate.convertAndSend("/message_receive/"+username,mDTO);
-        }
     }
 
 
