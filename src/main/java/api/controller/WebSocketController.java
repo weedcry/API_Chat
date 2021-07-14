@@ -122,10 +122,10 @@ public class WebSocketController {
     }
 
 
-    @MessageMapping("/chat.deletechannel/{userid}/{channel_id}")
-    public void DeleteChannel(@Payload channelDTO channelDTO, @DestinationVariable String userid, @DestinationVariable long channel_id){
+    @MessageMapping("/chat.deletechannel/{userid}")
+    public void DeleteChannel(@Payload channelDTO channelDTO, @DestinationVariable String userid){
         channelDTO cdto = (channelDTO) channelS.deletechannelfor2user(channelDTO);
-        listUser = userService.listuserbychannelid(channel_id);
+        listUser = userService.listuserbychannelid(channelDTO.getId());
         for(userDTO u : listUser){
             if(!u.getId().equals(userid)){
                  String[] fn = u.getId().split("\\.");
