@@ -48,7 +48,7 @@ public class WebSocketController {
     @MessageMapping("/chat.sendMessage/{channelId}/{userId}")
     public void sendMessage(@Payload messagesDTO message,@DestinationVariable long channelId,@DestinationVariable String userId) {
         //them message vao db
-        messagesService.create(message);
+       messagesDTO mDTO = messagesService.create(message);
 
         System.out.println("Receive Message: "+ message.getContent());
         //tu channel_id gui tu client se tim dc cac user thuoc channel_id do
@@ -60,7 +60,7 @@ public class WebSocketController {
             System.out.println("/message_receive/"+listUser.get(i).getId());
             String[] fn = listUser.get(i).getId().split("\\.");
             String username = fn[0];
-            simpMessagingTemplate.convertAndSend("/message_receive/"+username,message);
+            simpMessagingTemplate.convertAndSend("/message_receive/"+username,mDTO);
         }
 
 
