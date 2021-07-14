@@ -49,8 +49,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         // TODO Auto-generated method stub
         registry.setApplicationDestinationPrefixes("/message_send");
         registry.enableSimpleBroker("/message_receive","/receiveupdatestatusmess",
-                "/receivedeletechannel","/receivedeletemessages","/receivegroup","/receivechannel",
-                "/receivefriendaccept","/receivedeletefriend");
+                "/receivedeletechannel","/receivedeletemessages","/receivegroup");
     }
 
 
