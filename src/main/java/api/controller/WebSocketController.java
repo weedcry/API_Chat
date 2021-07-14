@@ -71,18 +71,24 @@ public class WebSocketController {
     @MessageMapping("/chat.sendInvitefriend/{userId}")
     public void Invitefriendreceive(@Payload user friend,@DestinationVariable String userId){
       friend fri = (friend) friendSer.inviteFriendsocket(userId,friend);
-      simpMessagingTemplate.convertAndSend("/friend_receive/"+friend.getId(),fri);
+      String[] fn = friend.getId().split("\\.");
+      String username = fn[0];
+      simpMessagingTemplate.convertAndSend("/friend_receive/"+username,fri);
     }
 
     @MessageMapping("/chat.sendAcceptfriend/{userId}")
     public void Acceptfriendreceive(@Payload friendDTO Friend, @DestinationVariable String userId){
         friend fri = (friend) friendSer.acceptFriendSocket(userId,Friend);
-        simpMessagingTemplate.convertAndSend("/receivefriendaccept/"+Friend.getFriend().getId(),fri);
+        String[] fn = Friend.getFriend().getId().split("\\.");
+        String username = fn[0];
+        simpMessagingTemplate.convertAndSend("/receivefriendaccept/"+username,fri);
     }
 
     @MessageMapping("/chat.sendUnfriend/{userId}")
     public void Unfriendreceive(@Payload friendDTO Friend, @DestinationVariable String userId){
-        String username = (String) friendSer.deletefriendSocket(Friend);
+        String u = (String) friendSer.deletefriendSocket(Friend);
+        String[] fn = u.split("\\.");
+        String username = fn[0];
         simpMessagingTemplate.convertAndSend("/receivedeletefriend/"+username,userId);
     }
 
@@ -92,7 +98,9 @@ public class WebSocketController {
         listUser = userService.listuserbychannelid(channel_id);
         for(userDTO u : listUser){
             if(!u.getId().equals(userId)){
-                simpMessagingTemplate.convertAndSend("/receiveupdatestatusmess/"+u.getId(),channel_id);
+                String[] fn = u.getId().split("\\.");
+                String username = fn[0];
+                simpMessagingTemplate.convertAndSend("/receiveupdatestatusmess/"+username,channel_id);
                 break;
             }
         }
@@ -120,7 +128,9 @@ public class WebSocketController {
         listUser = userService.listuserbychannelid(channel_id);
         for(userDTO u : listUser){
             if(!u.getId().equals(userid)){
-                simpMessagingTemplate.convertAndSend("/receivedeletechannel/"+u.getId(),cdto);
+                 String[] fn = u.getId().split("\\.");
+                 String username = fn[0];
+                simpMessagingTemplate.convertAndSend("/receivedeletechannel/"+username,cdto);
                 break;
             }
         }
@@ -133,7 +143,9 @@ public class WebSocketController {
             listUser = userService.listuserbychannelid(cDTO.getId());
             for(userDTO u : listUser){
                 if(!u.getId().equals(userid)){
-                    simpMessagingTemplate.convertAndSend("/receivechannel/"+u.getId(),cDTO);
+                    String[] fn = u.getId().split("\\.");
+                    String username = fn[0];
+                    simpMessagingTemplate.convertAndSend("/receivechannel/"+username,cDTO);
                     break;
                 }
             }
@@ -143,7 +155,9 @@ public class WebSocketController {
     public void CreateGroup(@Payload List<userDTO> list,@DestinationVariable String userid){
         List<channelDTO> listchanDTO = channelS.creategroupsocket(userid,list);
         for (channelDTO chan : listchanDTO){
-            simpMessagingTemplate.convertAndSend("/receivegroup/"+chan.getAuthor_id(),chan);
+             String[] fn = chan.getAuthor_id().split("\\.");
+             String username = fn[0];
+            simpMessagingTemplate.convertAndSend("/receivegroup/"+username,chan);
         }
     }
 
