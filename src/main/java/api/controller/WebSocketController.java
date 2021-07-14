@@ -123,14 +123,14 @@ public class WebSocketController {
 
 
     @MessageMapping("/chat.deletechannel/{userid}")
-    public void DeleteChannel(@Payload channelDTO channelDTO, @DestinationVariable String userid){
-        channelDTO cdto = (channelDTO) channelS.deletechannelfor2user(channelDTO);
-        listUser = userService.listuserbychannelid(channelDTO.getId());
+    public void DeleteChannel(@Payload channelDTO chanDTO, @DestinationVariable String userid){
+        channelDTO cDTO = (channelDTO) channelS.deletechannelfor2user(chanDTO);
+        listUser = userService.listuserbychannelid(cDTO.getId());
         for(userDTO u : listUser){
             if(!u.getId().equals(userid)){
                  String[] fn = u.getId().split("\\.");
                  String username = fn[0];
-                simpMessagingTemplate.convertAndSend("/receivedeletechannel/"+username,cdto);
+                simpMessagingTemplate.convertAndSend("/receivedeletechannel/"+username,cDTO);
                 break;
             }
         }
@@ -144,7 +144,7 @@ public class WebSocketController {
             for(userDTO u : listUser){
                     String[] fn = u.getId().split("\\.");
                     String username = fn[0];
-                    simpMessagingTemplate.convertAndSend("/receivechannel/"+username,cDTO);
+//                     simpMessagingTemplate.convertAndSend("/receivechannel/"+username,cDTO);
             }
     }
 
