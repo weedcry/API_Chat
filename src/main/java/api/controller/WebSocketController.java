@@ -142,12 +142,9 @@ public class WebSocketController {
         channelDTO cDTO = (channelDTO )channelS.create(userid,friendid);
             listUser = userService.listuserbychannelid(cDTO.getId());
             for(userDTO u : listUser){
-                if(!u.getId().equals(userid)){
                     String[] fn = u.getId().split("\\.");
                     String username = fn[0];
                     simpMessagingTemplate.convertAndSend("/receivechannel/"+username,cDTO);
-                    break;
-                }
             }
     }
 
