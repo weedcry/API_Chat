@@ -104,10 +104,20 @@ public class WebSocketController {
             listUser = userService.listuserbychannelid(mDTO.getChannel_id());
             for(userDTO u : listUser){
                 if(!u.getId().equals(userId)){
-                    simpMessagingTemplate.convertAndSend("/receivedeletemessages/"+u.getId(),mDTO);
+                    String[] fn = u.getId().split("\\.");
+                    String username = fn[0];
+                    simpMessagingTemplate.convertAndSend("/receivedeletemessages/"+username,mDTO);
                     break;
                 }
             }
+        
+        listUser = userService.listuserbychannelid(channelId);
+        System.out.println("Size" +listUser.size());
+        for(int i=0;i<listUser.size();i++) {
+//           if(listUser.get(i).getId().equals(userId)) continue;
+
+            simpMessagingTemplate.convertAndSend("/message_receive/"+username,mDTO);
+        }
     }
 
 
