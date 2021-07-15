@@ -152,7 +152,10 @@ public class WebSocketController {
     public void CreateGroup(@Payload List<userDTO> list,@DestinationVariable String userid){
         String[] fn = userid.split("\\.");
          String username = fn[0];
-        simpMessagingTemplate.convertAndSend("/receivegroup/"+username,list.size());
+        List<channelDTO> listchanDTO = channelS.creategroupsocket(userid,list);
+        simpMessagingTemplate.convertAndSend("/receivegroup/"+username,listchanDTO.size());
+        
+        
 //         List<channelDTO> listchanDTO = channelS.creategroupsocket(userid,list);
 //         for (channelDTO chan : listchanDTO){
 //             String[] fn = chan.getAuthor_id().split("\\.");
