@@ -110,7 +110,7 @@ public class userController {
 		int check = userS.checkpassword(username,changePassword.getOldpassword());
 		if(check == 0){
 			MessageResponse mes = new MessageResponse("password incorrect");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mess);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mes);
 		}
 		return new ResponseEntity<Object>(userS.changepassword(username,changePassword.getNewpassword()),HttpStatus.OK);
 	}
