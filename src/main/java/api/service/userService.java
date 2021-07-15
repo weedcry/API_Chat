@@ -164,4 +164,23 @@ public class userService implements UserDetailsService {
 		return mes;
 	}
 
+	public void setonlineuser(String id){
+		try {
+			user u = userRes.findById(id);
+			u.setActive(1);
+			userRes.save(u);
+		}catch (Exception e){
+		}
+	}
+
+	public void setofflineuser(String id){
+		try {
+			user u = userRes.findById(id);
+			u.setActive(0);
+			userRes.save(u);
+		}catch (Exception e){
+		}
+	}
+
+
 }

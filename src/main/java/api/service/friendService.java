@@ -53,8 +53,8 @@ public class friendService {
         friendDTO fr = new friendDTO(username,friend,0,friend.getActive());
         friendDTO fr1 = new friendDTO(friend.getId(),u,2,u.getActive());
         try {
-            result.setData(friendConvert.tofriendDTO(friendRes.save(friendConvert.tofriend(fr))));
-            friendRes.save(friendConvert.tofriend(fr1));
+            friendRes.save(friendConvert.tofriend(fr));
+            result.setData(friendRes.save(friendConvert.tofriend(fr1)));
         }catch (Exception e){
 
         }

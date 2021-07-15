@@ -50,7 +50,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/message_send");
         registry.enableSimpleBroker("/message_receive","/receiveupdatestatusmess",
                 "/receivedeletechannel","/receivedeletemessages","/receivegroup","/receiveinvitefriend",
-                "/receiveacceptfriend","/receiveunfriend");
+                "/receiveacceptfriend","/receiveunfriend","/receiveonlineuser","/receiveofflineuser");
     }
 
 

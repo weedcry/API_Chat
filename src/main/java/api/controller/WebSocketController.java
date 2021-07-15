@@ -163,7 +163,8 @@ public class WebSocketController {
 
 
     public void connect(String username){
-
+        System.out.println(" on "+ username);
+        userS.setonlineuser(username);
         List<friendDTO> listDTO = (List<friendDTO> ) friendSer.findfriendById(username);
         for(friendDTO f :listDTO){
             simpMessagingTemplate.convertAndSend("/receiveonlineuser/"+f.getFriend().getId(),username);
@@ -173,11 +174,13 @@ public class WebSocketController {
 
 
     public void disconnect(String username){
-
+        System.out.println(" off "+ username);
+        userS.setofflineuser(username);
         List<friendDTO> listDTO = (List<friendDTO> ) friendSer.findfriendById(username);
         for(friendDTO f :listDTO){
             simpMessagingTemplate.convertAndSend("/receiveofflineuser/"+f.getFriend().getId(),username);
         }
+
     }
 
 }

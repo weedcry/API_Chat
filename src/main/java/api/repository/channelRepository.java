@@ -9,6 +9,7 @@ import api.entity.channel;
 
 public interface channelRepository extends JpaRepository<channel,Long> {
 
+
 	@Query(value = "SELECT * FROM channel  where id = ?1", nativeQuery = true)
 	List<channel> findByid(long id);
 

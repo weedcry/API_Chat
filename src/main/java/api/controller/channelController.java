@@ -10,6 +10,7 @@ import api.entity.channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,6 @@ import api.service.channelService;
 public class channelController {
 	@Autowired
 	channelService channelS;
-
 	
 	@GetMapping("/user")
 	public ResponseEntity<Object> findByAuthorid(){
@@ -89,7 +89,9 @@ public class channelController {
             username = ((UserDetails)principal).getUsername();
         }
         return new ResponseEntity<Object>(channelS.creategroup(username,list),HttpStatus.CREATED);
+//		return new ResponseEntity<Object>(channelS.creategroupsocket(username,list),HttpStatus.CREATED);
     }
+
 
 
 }

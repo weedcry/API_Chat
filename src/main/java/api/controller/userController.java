@@ -114,4 +114,5 @@ public class userController {
 		return new ResponseEntity<Object>(userS.changepassword(username,changePassword.getNewpassword()),HttpStatus.OK);
 	}
 
+
 }
