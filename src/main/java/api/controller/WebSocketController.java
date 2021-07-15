@@ -150,12 +150,13 @@ public class WebSocketController {
 
     @MessageMapping("/chat.creategroup/{userid}")
     public void CreateGroup(@Payload List<userDTO> list,@DestinationVariable String userid){
-        List<channelDTO> listchanDTO = channelS.creategroupsocket(userid,list);
-        for (channelDTO chan : listchanDTO){
-            String[] fn = chan.getAuthor_id().split("\\.");
-            String username = fn[0];
-            simpMessagingTemplate.convertAndSend("/receivegroup/"+username,chan);
-        }
+        simpMessagingTemplate.convertAndSend("/receivegroup/"+userid,userid);
+//         List<channelDTO> listchanDTO = channelS.creategroupsocket(userid,list);
+//         for (channelDTO chan : listchanDTO){
+//             String[] fn = chan.getAuthor_id().split("\\.");
+//             String username = fn[0];
+//             simpMessagingTemplate.convertAndSend("/receivegroup/"+username,chan);
+//         }
     }
 
 
