@@ -45,6 +45,9 @@ public class WebSocketController {
     @Autowired
     friendService friendSer;
 
+    @Autowired
+    userService userS;
+
     @MessageMapping("/chat.sendMessage/{channelId}/{userId}")
     public void sendMessage(@Payload messagesDTO message,@DestinationVariable long channelId,@DestinationVariable String userId) {
         //them message vao db
@@ -150,25 +153,31 @@ public class WebSocketController {
 
     @MessageMapping("/chat.creategroup/{userid}")
     public void CreateGroup(@Payload List<userDTO> list,@DestinationVariable String userid){
-        String[] fn = userid.split("\\.");
-         String username = fn[0];
         List<channelDTO> listchanDTO = channelS.creategroupsocket(userid,list);
-        simpMessagingTemplate.convertAndSend("/receivegroup/"+username,listchanDTO.size());
-        
-        
-//         List<channelDTO> listchanDTO = channelS.creategroupsocket(userid,list);
-//         for (channelDTO chan : listchanDTO){
-//             String[] fn = chan.getAuthor_id().split("\\.");
-//             String username = fn[0];
-//             simpMessagingTemplate.convertAndSend("/receivegroup/"+username,chan);
-//         }
+        for (channelDTO chan : listchanDTO){
+            String[] fn = chan.getAuthor_id().split("\\.");
+            String usern = fn[0];
+            simpMessagingTemplate.convertAndSend("/receivegroup/"+usern,chan);
+        }
     }
 
 
-    public void a(){
+    public void connect(String username){
 
-        System.out.println("alo");
+        List<friendDTO> listDTO = (List<friendDTO> ) friendSer.findfriendById(username);
+        for(friendDTO f :listDTO){
+            simpMessagingTemplate.convertAndSend("/receiveonlineuser/"+f.getFriend().getId(),username);
+        }
+
     }
 
+
+    public void disconnect(String username){
+
+        List<friendDTO> listDTO = (List<friendDTO> ) friendSer.findfriendById(username);
+        for(friendDTO f :listDTO){
+            simpMessagingTemplate.convertAndSend("/receiveofflineuser/"+f.getFriend().getId(),username);
+        }
+    }
 
 }
