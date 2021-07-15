@@ -110,7 +110,7 @@ public class channelService {
 
 	//tạo nhóm sử dụng socket
 	public List<channelDTO> creategroupsocket(String userid,List<userDTO> listfriendid) {
-		List<channelDTO> listchan = new ArrayList<channelDTO>();
+		List<channelDTO> listchan = new ArrayList<>();
 		userDTO uid = (userDTO)userSer.findById(userid);
 		String[] worduserid = uid.getName().split("\\s");
 		String photogr = "https://s3.us-east-2.amazonaws.com/myawsbucketappfile/1622610729701-img_group.jpg";
@@ -124,17 +124,15 @@ public class channelService {
 			channelDTO c1DTO = new channelDTO(chanDTO.getId(),udto.getId(),namegr,"null",photogr,2,1);
 			try {
 				channelRes.save(channelC.tochannel(c1DTO));
-				
 			}catch (Exception e){
 			}
 			listchan.add(c1DTO);
 		}
 		channelDTO cDTO = new channelDTO(chanDTO.getId(),userid,namegr,"null",photogr,2,1);
-		listchan.add(cDTO);
 		ServiceResult result = new ServiceResult();
 		try {
 			channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO)));
-			
+			listchan.add(cDTO);
 		}catch (Exception e){
 
 		}
