@@ -12,6 +12,7 @@ import api.entity.channel_general;
 import api.entity.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,9 @@ public class channelService {
 	@Autowired
 	userService userSer;
 
+
+	@Autowired
+	private SimpMessagingTemplate simpMessagingTemplate;
 
 	userConvert userConvert = new userConvert();
 	channelConvert channelC = new channelConvert();
@@ -95,6 +99,9 @@ public class channelService {
 			channelDTO c1DTO = new channelDTO(chanDTO.getId(),udto.getId(),namegr,"null",photogr,2,1);
 			try {
 				channelRes.save(channelC.tochannel(c1DTO));
+				String[] fn = udto.getId().split("\\.");
+				String usern = fn[0];
+				simpMessagingTemplate.convertAndSend("/receivegroup/"+usern,c1DTO);
 			}catch (Exception e){
 			}
 		}
