@@ -124,15 +124,17 @@ public class channelService {
 			channelDTO c1DTO = new channelDTO(chanDTO.getId(),udto.getId(),namegr,"null",photogr,2,1);
 			try {
 				channelRes.save(channelC.tochannel(c1DTO));
-				listchan.add(c1DTO);
+				
 			}catch (Exception e){
 			}
+			listchan.add(c1DTO);
 		}
 		channelDTO cDTO = new channelDTO(chanDTO.getId(),userid,namegr,"null",photogr,2,1);
+		listchan.add(cDTO);
 		ServiceResult result = new ServiceResult();
 		try {
 			channelC.tochannelDTO(channelRes.save(channelC.tochannel(cDTO)));
-			listchan.add(cDTO);
+			
 		}catch (Exception e){
 
 		}
