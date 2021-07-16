@@ -53,14 +53,13 @@ public class WebSocketController {
         //them message vao db
         messagesDTO mDTO = (messagesDTO) messagesService.create(message);
 
-        System.out.println("Receive Message: "+ message.getContent());
+
         //tu channel_id gui tu client se tim dc cac user thuoc channel_id do
 
         listUser = userService.listuserbychannelid(channelId);
         System.out.println("Size" +listUser.size());
         for(int i=0;i<listUser.size();i++) {
 //           if(listUser.get(i).getId().equals(userId)) continue;
-            System.out.println("/message_receive/"+listUser.get(i).getId());
             String[] fn = listUser.get(i).getId().split("\\.");
             String username = fn[0];
             simpMessagingTemplate.convertAndSend("/message_receive/"+username,mDTO);
